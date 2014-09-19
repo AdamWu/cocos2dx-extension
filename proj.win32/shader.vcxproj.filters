@@ -62,6 +62,21 @@
     <ClCompile Include="..\Classes\Demo.cpp">
       <Filter>Classes</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\ui\ContentLayer.cpp">
+      <Filter>Classes\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\ui\PageScrollView.cpp">
+      <Filter>Classes\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\ui\CCScale9Sprite.cpp">
+      <Filter>Classes\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\demo\scene_ui.cpp">
+      <Filter>Classes\demo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\ui\VEScrollView.cpp">
+      <Filter>Classes\ui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\AppDelegate.h">
@@ -105,6 +120,24 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Demo.h">
       <Filter>Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ui\ContentLayer.h">
+      <Filter>Classes\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ui\PageScrollView.h">
+      <Filter>Classes\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ui\CCScale9Sprite.h">
+      <Filter>Classes\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\demo\scene_ui.h">
+      <Filter>Classes\demo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ui\VEScrollView.h">
+      <Filter>Classes\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ui\Utils.h">
+      <Filter>Classes\ui</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

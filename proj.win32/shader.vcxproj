@@ -67,7 +67,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\libs\cocos2dx;$(ProjectDir)..\libs\cocos2dx\include;$(ProjectDir)..\libs\cocos2dx\kazmath\include;$(ProjectDir)..\libs\cocos2dx\platform\win32;$(ProjectDir)..\libs\cocos2dx\platform\third_party\win32\OGLES;..\Classes;$(ProjectDir)..\..\..\..\extensions;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\libs\cocos2dx;$(ProjectDir)..\libs\cocos2dx\include;$(ProjectDir)..\libs\cocos2dx\kazmath\include;$(ProjectDir)..\libs\cocos2dx\platform\win32;$(ProjectDir)..\libs\cocos2dx\platform\third_party\win32\OGLES;..\Classes;$(ProjectDir)..\libs\extensions;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;COCOS2D_DEBUG=1;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -128,12 +128,17 @@
     <ClCompile Include="..\Classes\demo\scene_blur.cpp" />
     <ClCompile Include="..\Classes\demo\scene_frost.cpp" />
     <ClCompile Include="..\Classes\demo\scene_stream.cpp" />
+    <ClCompile Include="..\Classes\demo\scene_ui.cpp" />
     <ClCompile Include="..\Classes\shader\blind_sprite.cpp" />
     <ClCompile Include="..\Classes\shader\bloom_sprite.cpp" />
     <ClCompile Include="..\Classes\shader\blur_sprite.cpp" />
     <ClCompile Include="..\Classes\shader\frost_sprite.cpp" />
     <ClCompile Include="..\Classes\shader\stream_sprite.cpp" />
     <ClCompile Include="..\Classes\ui\CCCursorTextField.cpp" />
+    <ClCompile Include="..\Classes\ui\CCScale9Sprite.cpp" />
+    <ClCompile Include="..\Classes\ui\ContentLayer.cpp" />
+    <ClCompile Include="..\Classes\ui\PageScrollView.cpp" />
+    <ClCompile Include="..\Classes\ui\VEScrollView.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -144,12 +149,18 @@
     <ClInclude Include="..\Classes\demo\scene_blur.h" />
     <ClInclude Include="..\Classes\demo\scene_frost.h" />
     <ClInclude Include="..\Classes\demo\scene_stream.h" />
+    <ClInclude Include="..\Classes\demo\scene_ui.h" />
     <ClInclude Include="..\Classes\shader\blind_sprite.h" />
     <ClInclude Include="..\Classes\shader\bloom_sprite.h" />
     <ClInclude Include="..\Classes\shader\blur_sprite.h" />
     <ClInclude Include="..\Classes\shader\frost_sprite.h" />
     <ClInclude Include="..\Classes\shader\stream_sprite.h" />
     <ClInclude Include="..\Classes\ui\CCCursorTextField.h" />
+    <ClInclude Include="..\Classes\ui\CCScale9Sprite.h" />
+    <ClInclude Include="..\Classes\ui\ContentLayer.h" />
+    <ClInclude Include="..\Classes\ui\PageScrollView.h" />
+    <ClInclude Include="..\Classes\ui\Utils.h" />
+    <ClInclude Include="..\Classes\ui\VEScrollView.h" />
     <ClInclude Include="main.h" />
   </ItemGroup>
   <ItemGroup>

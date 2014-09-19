@@ -7,6 +7,7 @@
 #include "demo/scene_blur.h"
 #include "demo/scene_frost.h"
 #include "demo/scene_bloom.h"
+#include "demo/scene_ui.h"
 
 using namespace std;
 
@@ -19,6 +20,7 @@ enum
 	TEST_BLUR,
 	TEST_FROST,
 	TEST_BLOOM,
+	TEST_UI,
 
 	// last one
 	TESTS_COUNT,
@@ -30,6 +32,7 @@ const std::string g_aTestNames[TESTS_COUNT] = {
 	"Blur",
 	"Frost",
 	"Bloom",
+	"UI",
 };
 
 static CCPoint s_tCurPos = CCPointZero;
@@ -76,7 +79,10 @@ bool Demo::init()
 	for (int i = 0; i < TESTS_COUNT; ++i)
 	{  
 		CCSprite* sprite = CCSprite::create();
-		sprite->initWithFile((string("demo/")+g_aTestNames[i].c_str()+".jpg").c_str());
+		bool bRet = sprite->initWithFile((string("demo/")+g_aTestNames[i].c_str()+".jpg").c_str());
+		if (bRet == false) {
+			sprite->initWithFile("demo/default.png");
+		}
 		CCMenuItemSprite* pMenuItem = CCMenuItemSprite::create(sprite, sprite, sprite, this, menu_selector(Demo::menuCallback));
 		m_pItemMenu->addChild(pMenuItem, i + 10000);
 		pMenuItem->setPosition(ccp(50 + i * CELL_WIDTH + CELL_WIDTH/2, winSize.height/2));
@@ -121,6 +127,8 @@ void Demo::menuCallback(CCObject * pSender)
 		pScene = SceneFrost::scene(); break;
 	case TEST_BLOOM:
 		pScene = SceneBloom::scene(); break;
+	case TEST_UI:
+		pScene = SceneUI::scene(); break;
 	default:
 		break;
 	}
