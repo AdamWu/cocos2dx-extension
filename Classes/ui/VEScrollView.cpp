@@ -1,10 +1,13 @@
 #include "VEScrollView.h"
 
+
 bool VEScrollView::init()
 {
     if (!CCLayer::init()) return false;
 
 	m_bTouching = false;
+
+	m_fIntensity = 0.f;
 
 	m_scrollBar = NULL;
 	m_barScale = 0.f;
@@ -83,6 +86,7 @@ bool VEScrollView::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
     if(boundingBox().containsPoint(localPoint))
     {
         m_fTouchOffset = 0;
+		m_fIntensity = 0.f;
 		m_bTouching=true;
 		makeScrollBar();
 	}
@@ -97,7 +101,20 @@ void VEScrollView::ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent)
 	if(m_bTouching)
     {
 		m_fTouchOffset = currPoint.y - prevPoint.y;
-		m_pContainer->setPositionY(m_pContainer->getPositionY() + m_fTouchOffset);
+		
+		// intensity
+		float curPos = m_pContainer->getPositionY();
+		if (curPos < 0.f) { 
+			m_fIntensity = abs(curPos);
+		}else if(curPos > m_contentSize.height-m_viewSize.height ){
+			m_fIntensity = curPos - m_contentSize.height+m_viewSize.height;
+		}
+	
+		float scale = 1.f;
+		if (m_fIntensity > 0.f ){
+			scale = 1.f - m_fIntensity * 2 / m_viewSize.height;
+		}
+		m_pContainer->setPositionY(m_pContainer->getPositionY() + m_fTouchOffset*scale);
 	}
 }
 
@@ -126,7 +143,7 @@ void VEScrollView::ccTouchEnded(CCTouch *pTouch, CCEvent *pEvent)
     }
 }
 
-// default implements are used to call script callback if exist
+
 void VEScrollView::ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent)
 {
     ccTouchBegan((CCTouch*)pTouches->anyObject(), pEvent);
@@ -141,7 +158,6 @@ void VEScrollView::ccTouchesEnded(CCSet *pTouches, CCEvent *pEvent)
 }
 
 
-//adjust the position of subviews.Default vertically display
 void VEScrollView::reArrange()
 {
 	CCArray *children = m_pContainer->getChildren();
@@ -168,7 +184,7 @@ void VEScrollView::reArrange()
 	m_contentSize.height = abs(h);
 }
 
-//called every 0.01 second by the schedule function to do all the movements.
+
 void VEScrollView::update(float dt)
 {
     if(!m_bTouchEnabled)
@@ -200,20 +216,43 @@ void VEScrollView::update(float dt)
 
 	if(m_scrollBar && m_scrollBar->getOpacity())
 	{
-		float p = m_pContainer->getPositionY();
-		
 		float gap = m_contentSize.height - m_viewSize.height; 
 		gap = max(gap, 0);
+
+		float p = m_pContainer->getPositionY();
 		if(p < 0)
 			p = 0;		
 		else if(p > gap)
 			p = gap;
 
-		m_scrollBar->setPositionY(m_viewSize.height/2-p*m_barScale);
+		static bool bFirstHalf = true;
+		float offset = 0.f;
+		if (p > gap/2 && bFirstHalf){
+			bFirstHalf = false;
+			m_scrollBar->setAnchorPoint(ccp(0.5, 0.f));
+			offset = m_barSize.height;
+		}else if(p < gap/2 && !bFirstHalf){
+			bFirstHalf = true;
+			m_scrollBar->setAnchorPoint(ccp(0.5, 1.f));
+			offset = -m_barSize.height;
+		}
+		if (bFirstHalf)
+			m_scrollBar->setPositionY(m_viewSize.height/2-p*m_barScale - offset);
+		else 
+			m_scrollBar->setPositionY(m_viewSize.height/2-p*m_barScale-m_barSize.height - offset);
 
+		float scale = 1.f;
+		float curPos = m_pContainer->getPositionY();
+		if (curPos < 0.f) { 
+			scale = 1.f - abs(curPos)/m_viewSize.height;
+		}else if(curPos > m_contentSize.height-m_viewSize.height ){
+			scale = 1.f - (curPos-m_contentSize.height+m_viewSize.height)/m_viewSize.height;
+		}
+
+		m_scrollBar->setScaleY(scale);
 	}
 	
-	reArrange();
+	//reArrange();
 }
 
 void VEScrollView::makeScrollBar()
@@ -227,6 +266,7 @@ void VEScrollView::makeScrollBar()
     }
     m_barScale = scale;
 	int barHeight = max(int(actionHeight*m_barScale) , 30);
+	m_barScale = scale - (barHeight-int(actionHeight*m_barScale))/ m_contentSize.height;
 	
 	if(!m_scrollBar)
     {
@@ -245,6 +285,7 @@ void VEScrollView::makeScrollBar()
 	}
 	m_scrollBar->setContentSize(CCSize(m_scrollBar->getContentSize().width, barHeight));
 	m_scrollBar->setVisible(true);
+	m_barSize = m_scrollBar->getContentSize();
 }
 
 void VEScrollView::fadeScrollBar()
@@ -293,7 +334,7 @@ void VEScrollView::setTouchEnabled(bool val)
     reArrange();
 }
 
-//check if any subview is clicked.
+//check if any node is clicked.
 CCNode *VEScrollView::touchCheck(CCPoint touchPoint)
 {
 	CCArray *children = m_pContainer->getChildren();

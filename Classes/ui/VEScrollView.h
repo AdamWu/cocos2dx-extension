@@ -94,9 +94,14 @@ protected:
 	// move direction  
 	int		m_moveDir;
 
+	// elastic intensity offset
+	// [0:normal,>0:stretch]
+	float	m_fIntensity;
+
 	// scroll bar 
 	CCScale9Sprite* m_scrollBar;
 	float m_barScale;
+	CCSize m_barSize;
 };
 
 #endif //__VESCROLLVIEW_H__

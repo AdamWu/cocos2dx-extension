@@ -62,7 +62,6 @@ bool SceneUI::init()
 		sprite->addChild(label);
 	}	
 
-
 	this->addChild(scrollview);
 
     return true;
