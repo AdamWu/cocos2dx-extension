@@ -32,7 +32,7 @@ bool SceneUI::init()
 
 	CCLabelTTF* label = CCLabelTTF::create("UI", "Arial", 30); 
 	label->setPosition(ccp(winSize.width/2, winSize.height-100));
-	this->addChild(label);
+	this->addChild(label, 2);
 
     CCMenuItemImage *pBackItem = CCMenuItemImage::create( "back_0.png", "back_1.png", this, menu_selector(SceneUI::menuBackCallback));
 	pBackItem->setPosition(ccp(winSize.width - pBackItem->getContentSize().width , winSize.height - pBackItem->getContentSize().height));
@@ -43,15 +43,16 @@ bool SceneUI::init()
 	
 	CCSprite *bg = CCSprite::create("tex_0.png");
 	bg->setPosition(ccp(winSize.width/2, winSize.height/2));
+	bg->setScale(2);
 	this->addChild(bg);
 
 	VEScrollView *scrollview = VEScrollView::create();
-	scrollview->setPosition(ccp(winSize.width/2, winSize.height/2));
-	scrollview->setViewSize(CCSizeMake(200, 200));
-
+	scrollview->setPosition(ccp(winSize.width/2, winSize.height/2+20));
+	scrollview->setViewSize(CCSizeMake(180, 300));
+	scrollview->setType(SCROLLVIEW_VERTICAL);
 	for(int i = 0; i < 10 ; i ++){
 		CCSprite *sprite = CCSprite::create("btn_1.png");
-		scrollview->addLayer(sprite);
+		scrollview->addCell(sprite);
 
 		CCLabelTTF *label = CCLabelTTF::create();
 		label->setFontSize(26);
@@ -60,9 +61,26 @@ bool SceneUI::init()
 		label->setString(str);
 		label->setPosition(ccp(sprite->getContentSize().width/2, sprite->getContentSize().height/2));
 		sprite->addChild(label);
-	}	
-
+	}
 	this->addChild(scrollview);
+
+	VEScrollView *scrollview2 = VEScrollView::create();
+	scrollview2->setPosition(ccp(winSize.width/2, winSize.height/2-200));
+	scrollview2->setViewSize(CCSizeMake(400, 130));
+	scrollview2->setType(SCROLLVIEW_HORIZONTAL);
+	for(int i = 0; i < 10 ; i ++){
+		CCSprite *sprite = CCSprite::create("item1.png");
+		scrollview2->addCell(sprite);
+
+		CCLabelTTF *label = CCLabelTTF::create();
+		label->setFontSize(26);
+		char str[10];
+		sprintf(str, "%d", i);
+		label->setString(str);
+		label->setPosition(ccp(sprite->getContentSize().width/2, sprite->getContentSize().height/2));
+		sprite->addChild(label);
+	}
+	this->addChild(scrollview2);
 
     return true;
 }

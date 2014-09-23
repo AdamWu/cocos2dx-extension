@@ -5,6 +5,8 @@ bool VEScrollView::init()
 {
     if (!CCLayer::init()) return false;
 
+	m_eType = SCROLLVIEW_NONE;
+
 	m_bTouching = false;
 
 	m_fIntensity = 0.f;
@@ -25,26 +27,26 @@ bool VEScrollView::init()
 }
 
 
-void VEScrollView::addLayer(CCNode* layer)
+void VEScrollView::addCell(CCNode* cell)
 {
-	m_pContainer->addChild(layer);
+	m_pContainer->addChild(cell);
 	reArrange();
 }
 
-void VEScrollView::removeLayer(CCNode* view)
+void VEScrollView::removeCell(CCNode* cell)
 {
-	m_pContainer->removeChild(view,true);
+	m_pContainer->removeChild(cell,true);
     reArrange();
 }
 
-void VEScrollView::removeAllLayers()
+void VEScrollView::removeAllCells()
 {
 	m_pContainer->removeAllChildren();
 }
 
-CCArray* VEScrollView::getChildren()
+CCArray* VEScrollView::getAllCells()
 {
-    return m_pContainer->getChildren();
+	return m_pContainer->getChildren();
 }
 
 //set the size of the visible region 
@@ -55,20 +57,15 @@ void VEScrollView::setViewSize(CCSize size)
 	m_pContainer->setPositionY(0);
 }
 
-float VEScrollView::getContentY()
+CCPoint VEScrollView::getContentOffset() const
 {
-    return m_pContainer->getPositionY();
+    return m_pContainer->getPosition();
 }
 
-void VEScrollView::setContentY(float y)
+void VEScrollView::setContentOffset(CCPoint offset)
 {
-    m_pContainer->setPositionY(y);
+    m_pContainer->setPosition(offset);
     reArrange();
-}
-
-void VEScrollView::reset()
-{
-    m_pContainer->setPositionY(0);
 }
 
 CCRect VEScrollView::boundingBox()
@@ -100,21 +97,42 @@ void VEScrollView::ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent)
     
 	if(m_bTouching)
     {
-		m_fTouchOffset = currPoint.y - prevPoint.y;
-		
-		// intensity
-		float curPos = m_pContainer->getPositionY();
-		if (curPos < 0.f) { 
-			m_fIntensity = abs(curPos);
-		}else if(curPos > m_contentSize.height-m_viewSize.height ){
-			m_fIntensity = curPos - m_contentSize.height+m_viewSize.height;
-		}
-	
+		CCPoint offset = currPoint - prevPoint;
+		CCPoint pos = m_pContainer->getPosition();
+
 		float scale = 1.f;
-		if (m_fIntensity > 0.f ){
-			scale = 1.f - m_fIntensity * 2 / m_viewSize.height;
+		switch (m_eType) {
+		case SCROLLVIEW_HORIZONTAL:
+			// intensity
+			if (pos.x > 0.f) { 
+				m_fIntensity = pos.x;
+			}else if(pos.x < -(m_contentSize.width-m_viewSize.width)){
+				m_fIntensity = abs(pos.x + m_contentSize.width - m_viewSize.width);
+			}
+			if (m_fIntensity > 0.f ){
+				scale = 1.f - m_fIntensity * 2 / m_viewSize.width;
+			}
+			m_fTouchOffset = offset.x;
+			m_pContainer->setPositionX(m_pContainer->getPositionX() + m_fTouchOffset*scale);
+			break;
+		case SCROLLVIEW_VERTICAL:		
+			// intensity
+			if (pos.y < 0.f) { 
+				m_fIntensity = abs(pos.y);
+			}else if(pos.y > m_contentSize.height-m_viewSize.height ){
+				m_fIntensity = pos.y - m_contentSize.height+m_viewSize.height;
+			}
+			if (m_fIntensity > 0.f ){
+				scale = 1.f - m_fIntensity * 2 / m_viewSize.height;
+			}
+			m_fTouchOffset = offset.y;
+			m_pContainer->setPositionY(m_pContainer->getPositionY() + m_fTouchOffset*scale);
+			break;
+		default:
+			CCLOG("wrong scroll type");
+			break;
 		}
-		m_pContainer->setPositionY(m_pContainer->getPositionY() + m_fTouchOffset*scale);
+
 	}
 }
 
@@ -162,26 +180,50 @@ void VEScrollView::reArrange()
 {
 	CCArray *children = m_pContainer->getChildren();
 
-	float h = m_viewSize.height/2.f;
+	float posX = -m_viewSize.width/2.f;
+	float posY = m_viewSize.height/2.f;
 
 	for(int i = 0; i < m_pContainer->getChildrenCount(); i++)
     {
 		CCNode *node = (CCNode*)children->objectAtIndex(i);
 		CCSize nodeSize = node->getContentSize();
 		node->setAnchorPoint(ccp(0.5, 0.5));
-		node->setPositionY(h-nodeSize.height/2.f);
+		switch (m_eType){
+		case SCROLLVIEW_HORIZONTAL:
+			node->setPositionX(posX+nodeSize.width/2.f);
+			posX += nodeSize.width;
+			break;
+		case SCROLLVIEW_VERTICAL:
+			node->setPositionY(posY-nodeSize.height/2.f);
+			posY -= nodeSize.height;
+			break;
+		default:
+			CCLOG("wrong scroll type");
+			break;
+		}
         //float nodeY = m_pContainer->getPositionY()+h;
         //node->setVisible(nodeY<nodeSize.height && nodeY>-m_viewSize.height);
         //if(dynamic_cast<CCLayer*>(node))
         //   dynamic_cast<CCLayer*>(node)->setTouchEnabled(nodeY<nodeSize.height && nodeY>-m_viewSize.height);
 
-		h -= nodeSize.height;
 	}
-	
-	h -= m_viewSize.height/2.f;
 
-	m_contentSize.width = m_viewSize.width;
-	m_contentSize.height = abs(h);
+
+	switch (m_eType){
+	case SCROLLVIEW_HORIZONTAL:
+		posX += m_viewSize.width/2.f;
+		m_contentSize.width = abs(posX);
+		m_contentSize.height = m_viewSize.height;
+		break;
+	case SCROLLVIEW_VERTICAL:
+		posY -= m_viewSize.height/2.f;
+		m_contentSize.width = m_viewSize.width;
+		m_contentSize.height = abs(posY);
+		break;
+	default:
+		CCLOG("wrong scroll type");
+		break;
+	}
 }
 
 
@@ -192,64 +234,125 @@ void VEScrollView::update(float dt)
     
 	if(!m_bTouching )
     {
-		if(m_pContainer->getPositionY() < 0)
-        {
-			easing(0);
-			m_fTouchOffset = 0;
-		}
+		CCPoint pos = m_pContainer->getPosition();
+		CCSize gap = m_contentSize - m_viewSize;
+		gap.width = max(gap.width, 0);
+		gap.height = max(gap.height, 0);
 
-		float gap = m_contentSize.height - m_viewSize.height; 
-		gap = max(gap, 0);
-		if(m_pContainer->getPositionY() > gap)
-		{
-			easing(gap);
-			m_fTouchOffset = 0;
+		switch (m_eType){
+		case SCROLLVIEW_HORIZONTAL:
+			if (pos.x > 0) {
+				easing(0);
+				m_fTouchOffset = 0;
+			}
+			if (pos.x < -gap.width){
+				easing(-gap.width);
+				m_fTouchOffset = 0;
+			}
+			if (m_fTouchOffset != 0){
+				m_fTouchOffset-=1;
+				if(m_fTouchOffset < 0) m_fTouchOffset = 0;
+				m_pContainer->setPositionX(m_pContainer->getPositionX() + m_moveDir * m_fTouchOffset);
+			}
+			break;
+		case SCROLLVIEW_VERTICAL:
+			if (pos.y < 0) {
+				easing(0);
+				m_fTouchOffset = 0;
+			}
+			if (pos.y > gap.height){
+				easing(gap.height);
+				m_fTouchOffset = 0;
+			}
+			if (m_fTouchOffset != 0){
+				m_fTouchOffset-=1;
+				if(m_fTouchOffset < 0 ) m_fTouchOffset = 0;
+				m_pContainer->setPositionY(m_pContainer->getPositionY() + m_moveDir * m_fTouchOffset);
+			}
+			break;
+		default:
+			CCLOG("wrong scroll type");
+			this->unscheduleUpdate();
+			break;
 		}
-        
-		if(m_fTouchOffset != 0)
-        {
-			m_fTouchOffset-=1;
-			if(m_fTouchOffset < 0 ) m_fTouchOffset = 0;
-			m_pContainer->setPositionY(m_pContainer->getPositionY() + m_moveDir * m_fTouchOffset);
-		}
+       
 	}
 
 	if(m_scrollBar && m_scrollBar->getOpacity())
 	{
-		float gap = m_contentSize.height - m_viewSize.height; 
-		gap = max(gap, 0);
-
-		float p = m_pContainer->getPositionY();
-		if(p < 0)
-			p = 0;		
-		else if(p > gap)
-			p = gap;
+		CCPoint pos = m_pContainer->getPosition();
+		CCSize gap = m_contentSize - m_viewSize;
+		gap.width = max(gap.width, 0);
+		gap.height = max(gap.height, 0);
+		pos.x = min(pos.x, 0);
+		pos.x = max(pos.x, -gap.width);
+		pos.y = max(pos.y, 0);
+		pos.y = min(pos.y, gap.height);
+		
 
 		static bool bFirstHalf = true;
 		float offset = 0.f;
-		if (p > gap/2 && bFirstHalf){
-			bFirstHalf = false;
-			m_scrollBar->setAnchorPoint(ccp(0.5, 0.f));
-			offset = m_barSize.height;
-		}else if(p < gap/2 && !bFirstHalf){
-			bFirstHalf = true;
-			m_scrollBar->setAnchorPoint(ccp(0.5, 1.f));
-			offset = -m_barSize.height;
+		switch(m_eType){
+		case SCROLLVIEW_HORIZONTAL:
+			if (pos.x < -gap.width/2 && bFirstHalf){
+				bFirstHalf = false;
+				m_scrollBar->setAnchorPoint(ccp(1, 0.5f));
+				//offset = m_barSize.height;
+			}else if(pos.x > -gap.width/2 && !bFirstHalf){
+				bFirstHalf = true;
+				m_scrollBar->setAnchorPoint(ccp(0, 0.5f));
+				//offset = -m_barSize.height;
+			}
+			if (bFirstHalf)
+				m_scrollBar->setPositionX(-m_viewSize.width/2-pos.x*m_barScale - offset);
+			else 
+				m_scrollBar->setPositionX(-m_viewSize.width/2-pos.x*m_barScale+m_barSize.width - offset);
+			break;
+		case SCROLLVIEW_VERTICAL:
+			if (pos.y > gap.height/2 && bFirstHalf){
+				bFirstHalf = false;
+				m_scrollBar->setAnchorPoint(ccp(0.5, 0.f));
+				//offset = m_barSize.height;
+			}else if(pos.y < gap.height/2 && !bFirstHalf){
+				bFirstHalf = true;
+				m_scrollBar->setAnchorPoint(ccp(0.5, 1.f));
+				//offset = -m_barSize.height;
+			}
+			if (bFirstHalf)
+				m_scrollBar->setPositionY(m_viewSize.height/2-pos.y*m_barScale - offset);
+			else 
+				m_scrollBar->setPositionY(m_viewSize.height/2-pos.y*m_barScale-m_barSize.height - offset);
+			break;
+		default:
+			CCLOG("wrong scroll type");
+			break;
 		}
-		if (bFirstHalf)
-			m_scrollBar->setPositionY(m_viewSize.height/2-p*m_barScale - offset);
-		else 
-			m_scrollBar->setPositionY(m_viewSize.height/2-p*m_barScale-m_barSize.height - offset);
 
+
+		// auto-scale scrollbar
+		pos = m_pContainer->getPosition();
 		float scale = 1.f;
-		float curPos = m_pContainer->getPositionY();
-		if (curPos < 0.f) { 
-			scale = 1.f - abs(curPos)/m_viewSize.height;
-		}else if(curPos > m_contentSize.height-m_viewSize.height ){
-			scale = 1.f - (curPos-m_contentSize.height+m_viewSize.height)/m_viewSize.height;
+		switch(m_eType){
+		case SCROLLVIEW_HORIZONTAL:
+			if (pos.x > 0.f) { 
+				scale = 1.f - pos.x/m_viewSize.width;
+			}else if(pos.x < -(m_contentSize.width-m_viewSize.width)){
+				scale = 1.f - abs(pos.x+m_contentSize.width-m_viewSize.width)/m_viewSize.width;
+			}
+			m_scrollBar->setScaleX(scale);
+			break;
+		case SCROLLVIEW_VERTICAL:
+			if (pos.y < 0.f) {
+				scale = 1.f - abs(pos.y)/m_viewSize.height;
+			}else if(pos.y > m_contentSize.height-m_viewSize.height ){
+				scale = 1.f - (pos.y-m_contentSize.height+m_viewSize.height)/m_viewSize.height;
+			}
+			m_scrollBar->setScaleY(scale);
+			break;
+		default:
+			CCLOG("wrong scroll type");
+			break;
 		}
-
-		m_scrollBar->setScaleY(scale);
 	}
 	
 	//reArrange();
@@ -257,35 +360,66 @@ void VEScrollView::update(float dt)
 
 void VEScrollView::makeScrollBar()
 {
-	float actionHeight = m_viewSize.height;
-	float scale = actionHeight / m_contentSize.height;
+	float scale = 0.f;
+	int length_bar = 0;
+	switch (m_eType) {
+	case SCROLLVIEW_HORIZONTAL:
+		scale = m_viewSize.width/m_contentSize.width;
+		length_bar = max(int(m_viewSize.width*scale), 30);
+		m_barScale = scale - (length_bar-int(m_viewSize.width*scale))/m_contentSize.width;
+		break;
+	case SCROLLVIEW_VERTICAL:
+		scale = m_viewSize.height/m_contentSize.height;
+		length_bar = max(int(m_viewSize.height*scale), 30);
+		m_barScale = scale - (length_bar-int(m_viewSize.height*scale))/m_contentSize.height;
+		break;
+	default:
+		CCLOG("wrong scroll type");
+		break;
+	}
     if(scale >= 1)
     {
         if(m_scrollBar) m_scrollBar->setVisible(false);
         return;
     }
-    m_barScale = scale;
-	int barHeight = max(int(actionHeight*m_barScale) , 30);
-	m_barScale = scale - (barHeight-int(actionHeight*m_barScale))/ m_contentSize.height;
 	
-	if(!m_scrollBar)
-    {
-		m_scrollBar = CCScale9Sprite::create(CCRect(5, 5, 1, 1), "scrollbar.png");
-		m_scrollBar->setAnchorPoint(ccp(0.5 , 1));
-        
-        CCSize winSize = CCEGLView::sharedOpenGLView()->getVisibleSize();
-		m_scrollBar->setPosition(ccp(m_viewSize.width/2-20, m_viewSize.height));
-		addChild(m_scrollBar , 2);
+	switch(m_eType){
+	case SCROLLVIEW_HORIZONTAL:
+		if(!m_scrollBar)
+		{
+			m_scrollBar = CCScale9Sprite::create(CCRect(5, 5, 1, 1), "scrollbar_horizontal.png");
+			addChild(m_scrollBar, 2);
+			m_scrollBar->setAnchorPoint(ccp(0, 0.5));
+			m_scrollBar->setPosition(ccp(-m_viewSize.width/2.f, -m_viewSize.height/2.f+6));
+		}
+		m_scrollBar->setContentSize(CCSize(length_bar, m_scrollBar->getContentSize().height));
+		break;
+	case SCROLLVIEW_VERTICAL:
+		if(!m_scrollBar)
+		{
+			m_scrollBar = CCScale9Sprite::create(CCRect(5, 5, 1, 1), "scrollbar_vertical.png");
+			addChild(m_scrollBar, 2);
+
+			m_scrollBar->setAnchorPoint(ccp(0.5 , 1));
+			m_scrollBar->setPosition(ccp(m_viewSize.width/2-6, m_viewSize.height));
+		}
+		m_scrollBar->setContentSize(CCSize(m_scrollBar->getContentSize().width, length_bar));
+		break;
+	default:
+		CCLOG("wrong scroll type");
+		break;
 	}
-    
+
+	// store scroll-bar size
+	m_barSize = m_scrollBar->getContentSize();
+
+	m_scrollBar->setVisible(true);
 	if(m_scrollBar->isRunning())
     {
 		m_scrollBar->stopAllActions();
 		m_scrollBar->setOpacity(255);
 	}
-	m_scrollBar->setContentSize(CCSize(m_scrollBar->getContentSize().width, barHeight));
-	m_scrollBar->setVisible(true);
-	m_barSize = m_scrollBar->getContentSize();
+
 }
 
 void VEScrollView::fadeScrollBar()
@@ -317,12 +451,24 @@ void VEScrollView::visit()
 // easing movement when top or bottom
 bool VEScrollView::easing(float target)
 {
-	float curPosY = m_pContainer->getPositionY();
-	m_pContainer->setPositionY( curPosY + (target - curPosY) * 0.2);
-
-	if(std::abs(target - m_pContainer->getPositionY())<0.1 ){
-		m_pContainer->setPositionY(target);
-		return true;
+	CCPoint pos = m_pContainer->getPosition();
+	switch (m_eType){
+	case SCROLLVIEW_HORIZONTAL:
+		m_pContainer->setPositionX(pos.x + (target - pos.x) * 0.2);
+		if(std::abs(target - pos.x)<0.1 ){
+			m_pContainer->setPositionX(target);
+			return true;
+		}
+		break;
+	case SCROLLVIEW_VERTICAL:
+		m_pContainer->setPositionY(pos.y + (target - pos.y) * 0.2);
+		if(std::abs(target - pos.y)<0.1 ){
+			m_pContainer->setPositionY(target);
+			return true;
+		}
+		break;
+	default:
+		break;
 	}
 	return false;
 }

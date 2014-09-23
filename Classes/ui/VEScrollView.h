@@ -20,8 +20,9 @@ USING_NS_CC;
 
 enum ScrollViewType
 {
-    Horizontal = 1,
-    Vertical,
+	SCROLLVIEW_NONE = 0,
+	SCROLLVIEW_HORIZONTAL,
+	SCROLLVIEW_VERTICAL,
 };
 
 class VEScrollView : public CCLayer
@@ -32,20 +33,18 @@ public:
 
 public:
 	virtual bool init();
-	virtual CCRect boundingBox();
-    
-	void addLayer(CCNode* layer);
-    void removeLayer(CCNode* layer);
-    void removeAllLayers();
-    virtual CCArray* getChildren();
-    
+
+	// set scroll-view type
+	void setType(ScrollViewType type) { m_eType=type;};
+
+	// get scroll-view type
+	ScrollViewType getType() const {return m_eType;};
+
+	// set view port size
 	void setViewSize(CCSize size);
-	void setViewSize(CCSize size, CCRect actionport);
-    
-	virtual void reArrange();
-	virtual void makeScrollBar();
-	void fadeScrollBar();
-    void reset();
+	
+	// get view port size
+	CCSize getViewSize() const {return m_viewSize;};
 
     // default implements are used to call script callback if exist
     virtual bool ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent);
@@ -58,21 +57,33 @@ public:
 	virtual void ccTouchesEnded(CCSet *pTouches, CCEvent *pEvent);
 
 	virtual void visit();
+
+	virtual CCRect boundingBox();
     
     void setTouchEnabled(bool val);
     bool getTouchEnabled() const { return m_bTouchEnabled; }
     
-    float getContentY();
-    void setContentY(float y);
+	// set scroll view offset
+    CCPoint getContentOffset() const;
+    void setContentOffset(CCPoint offset);
+
+	// add scroll cell
+	void addCell(CCNode* cell);
+	void removeCell(CCNode* cell);
+	void removeAllCells();
+	CCArray* getAllCells();
 
 protected:
 	virtual void update(float dt);
 
+	virtual void reArrange();
+	virtual void makeScrollBar();
+	void fadeScrollBar();
 	bool easing(float tY);
 	CCNode *touchCheck(CCPoint touchPoint);
 protected:
 	// scroll-view type
-	ScrollViewType m_direction;
+	ScrollViewType m_eType;
 
 	// root node
 	CCNode* m_pContainer;
