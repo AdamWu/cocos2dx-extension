@@ -47,7 +47,7 @@ bool SceneUI::init()
 	this->addChild(bg);
 
 	VEScrollView *scrollview = VEScrollView::create();
-	scrollview->setPosition(ccp(winSize.width/2, winSize.height/2+20));
+	scrollview->setPosition(ccp(winSize.width/2-150, winSize.height/2+20));
 	scrollview->setViewSize(CCSizeMake(180, 300));
 	scrollview->setType(SCROLLVIEW_VERTICAL);
 	for(int i = 0; i < 10 ; i ++){
@@ -65,7 +65,7 @@ bool SceneUI::init()
 	this->addChild(scrollview);
 
 	VEScrollView *scrollview2 = VEScrollView::create();
-	scrollview2->setPosition(ccp(winSize.width/2, winSize.height/2-200));
+	scrollview2->setPosition(ccp(winSize.width/2, winSize.height/2-250));
 	scrollview2->setViewSize(CCSizeMake(400, 130));
 	scrollview2->setType(SCROLLVIEW_HORIZONTAL);
 	for(int i = 0; i < 10 ; i ++){
@@ -81,6 +81,36 @@ bool SceneUI::init()
 		sprite->addChild(label);
 	}
 	this->addChild(scrollview2);
+
+
+	VEScrollView *scrollview3 = VEScrollView::create();
+	scrollview3->setPosition(ccp(winSize.width/2+150, winSize.height/2+20));
+	scrollview3->setViewSize(CCSizeMake(180, 300));
+	scrollview3->setType(SCROLLVIEW_VERTICAL);
+	{
+		char str[1000];
+		label = CCLabelTTF::create();
+		label->setFontSize(40);
+		sprintf(str, "Test");
+		label->setString(str);
+		scrollview3->addCell(label);		
+		label = CCLabelTTF::create();
+		label->setFontSize(26);
+		sprintf(str, "this is a test for scroll view, this is a test for scroll view, this is a test for scroll view");
+		label->setString(str);
+		label->setDimensions(CCSizeMake(170, 200));
+		scrollview3->addCell(label);		
+		CCSprite *sprite = CCSprite::create("btn_1.png");
+		scrollview3->addCell(sprite);
+		label = CCLabelTTF::create();
+		label->setFontSize(26);
+		sprintf(str, "ok");
+		label->setString(str);
+		label->setPosition(ccp(sprite->getContentSize().width/2, sprite->getContentSize().height/2));
+		sprite->addChild(label);
+	}
+
+	this->addChild(scrollview3);
 
     return true;
 }
