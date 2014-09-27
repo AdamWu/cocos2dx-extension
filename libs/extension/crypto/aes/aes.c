@@ -769,7 +769,7 @@ unsigned char* aes_encrypt_ecb(aes_context *ctx, uint8 *input, uint32 length, ui
 
 	blocks = length / 16;
 
-	result = (unsigned char *)malloc(blocks*16);
+	result = (unsigned char *)malloc((blocks+1)*16);
 
 	for (idx=0; idx < blocks; idx++){
 		memset(buf_in, 0, 16);
@@ -779,13 +779,12 @@ unsigned char* aes_encrypt_ecb(aes_context *ctx, uint8 *input, uint32 length, ui
 
 	// last block
 	// PKCS7Padding
-	padding = length % 16;
+	padding = 16 - length % 16;
 	memcpy(buf_in, &input[blocks*16], length % 16);
 	memset(buf_in + length % 16, padding, padding);
 	aes_encrypt(ctx, buf_in, &result[blocks*16]);
 
 	blocks += 1;
-	
 
 	*ret_length = blocks*16;
 
@@ -796,21 +795,31 @@ unsigned char* aes_encrypt_ecb(aes_context *ctx, uint8 *input, uint32 length, ui
 unsigned char* aes_decrypt_ecb(aes_context *ctx, uint8 *input, uint32 length, uint32 *ret_length)
 {
 	unsigned char buf_in[16];
-	unsigned char *result;	
+	unsigned char *buf_out, *result;
+	unsigned char padding;
 	int blocks, idx;
 
 	blocks = length / 16;
 	if (length % 16 != 0 ) return NULL;
 
-	result = (unsigned char *)malloc(blocks*16);
+	buf_out = (unsigned char *)malloc(length);
 
 	for (idx=0; idx < blocks; idx++){
 		memcpy(buf_in,  &input[idx*16], 16);
-		aes_decrypt(ctx, buf_in, &result[idx*16]);
+		aes_decrypt(ctx, buf_in, &buf_out[idx*16]);
 	}
 
-	*ret_length = blocks*16;
+	// last block
+	// padding fix bytes
+	padding = (buf_out[length-1]);
 
+	*ret_length = length - padding;
+
+	result = (unsigned char *)malloc(length-padding);
+	memcpy(result, buf_out, length-padding);
+
+	free(buf_out);
+	
 	return result;
 }
 
