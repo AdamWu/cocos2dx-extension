@@ -14,6 +14,14 @@ extern "C" {
 }
 #endif
 
+enum AES_MODE 
+{
+	AES_ECB = 0,
+	AES_CBC,
+	AES_CTR,
+	AES_CCM,
+};
+
 /*********************** FUNCTION DEFINITIONS ***********************/
 void print_hex(unsigned char str[], int len)
 {
@@ -26,45 +34,6 @@ void print_hex(unsigned char str[], int len)
 void test_aes_ecb()
 {
 	aes_context ctx;
-	/*
-	unsigned char enc_buf[128];
-	unsigned char plaintext[2][16] = {
-		{0x6b,0xc1,0xbe,0xe2,0x2e,0x40,0x9f,0x96,0xe9,0x3d,0x7e,0x11,0x73,0x93,0x17,0x2a},
-		{0xae,0x2d,0x8a,0x57,0x1e,0x03,0xac,0x9c,0x9e,0xb7,0x6f,0xac,0x45,0xaf,0x8e,0x51}
-	};
-	unsigned char ciphertext[2][16] = {
-		{0xf3,0xee,0xd1,0xbd,0xb5,0xd2,0xa0,0x3c,0x06,0x4b,0x5a,0x7e,0x3d,0xb1,0x81,0xf8},
-		{0x59,0x1c,0xcb,0x10,0xd4,0x10,0xed,0x26,0xdc,0x5b,0xa7,0x4a,0x31,0x36,0x28,0x70}
-	};
-	unsigned char key[1][32] = {
-		{0x60,0x3d,0xeb,0x10,0x15,0xca,0x71,0xbe,0x2b,0x73,0xae,0xf0,0x85,0x7d,0x77,0x81,0x1f,0x35,0x2c,0x07,0x3b,0x61,0x08,0xd7,0x2d,0x98,0x10,0xa3,0x09,0x14,0xdf,0xf4}
-	};
-	int pass = 1;
-
-	// Raw ECB mode.
-	printf("* ECB mode:\n");
-	aes_set_key(&ctx, key[0], 256);
-	for(int idx = 0; idx < 2; idx++) {
-		unsigned long ret_length;
-		unsigned char *result = aes_encrypt_ecb(&ctx, plaintext[idx], 16 ,&ret_length);
-		printf("\nPlaintext    : ");
-		print_hex(plaintext[idx], 16);
-		printf("\n-encrypted to: ");
-		print_hex(result, 16);
-		pass = pass && !memcmp(result, ciphertext[idx], 16);
-
-		result = aes_decrypt_ecb(&ctx, ciphertext[idx], 16 ,&ret_length);
-		printf("\nCiphertext   : ");
-		print_hex(ciphertext[idx], 16);
-		printf("\n-decrypted to: ");
-		print_hex(result, 16);
-		pass = pass && !memcmp(result, plaintext[idx], 16);
-
-		printf("\n");
-	}
-	if (pass == 1) printf("pass\n");
-	else printf("no pass\n");
-	*/
 
 	printf("* ECB mode more:\n");
 	unsigned char input[3] = {0x6b,0xc1,0xbe};
@@ -82,11 +51,10 @@ void test_aes_ecb()
 	printf("\n");
 }
 
-// file crypto key
-unsigned char key[16] = {0x60,0x3d,0xeb,0x10,0x15,0xca,0x71,0xbe,0x2b,0x60,0x3d,0xeb,0x10,0x15,0xca,0x71};
 
 // encrypt file 
-int crypto_file(bool bEncrypt, const char *file_in, const char *file_out)
+const char iv[16] = {0xf0,0xf1,0xf2,0xf3,0xf4,0xf5,0xf6,0xf7,0xf8,0xf9,0xfa,0xfb,0xfc,0xfd,0xfe,0xff};
+int crypto_file(bool bEncrypt, AES_MODE mode, const char *file_in, const char *file_out, unsigned char *key)
 {
 	aes_context ctx;
 	char *buf;
@@ -96,11 +64,11 @@ int crypto_file(bool bEncrypt, const char *file_in, const char *file_out)
 	FILE *file_dst = fopen(file_out, "wb");
 	if (!file_src){
 		printf("can not find file:%s", file_in);
-		return -1;
+		return 1;
 	}
 	if (!file_dst){
 		printf("can not find file:%s", file_out);
-		return -1;
+		return 1;
 	}
 
 	fseek (file_src, 0, SEEK_END);
@@ -113,12 +81,48 @@ int crypto_file(bool bEncrypt, const char *file_in, const char *file_out)
 	// encrypt or decrypt
 	aes_set_key(&ctx, key, 128);
 	
-	if (bEncrypt)
-		result = aes_encrypt_ecb(&ctx, (unsigned char*)buf, fileSize, &result_length);
-	else
-		result = aes_decrypt_ecb(&ctx, (unsigned char*)buf, fileSize, &result_length);
+	switch (mode){
+	case AES_ECB:
+		if (bEncrypt)
+			result = aes_encrypt_ecb(&ctx, (unsigned char*)buf, fileSize, &result_length);
+		else
+			result = aes_decrypt_ecb(&ctx, (unsigned char*)buf, fileSize, &result_length);
+		break;
+	case AES_CBC:
+		if (bEncrypt)
+			result = aes_encrypt_cbc(&ctx, (unsigned char*)buf, fileSize, &result_length, iv);
+		else
+			result = aes_decrypt_cbc(&ctx, (unsigned char*)buf, fileSize, &result_length, iv);
+		break;
+	case AES_CTR:
+		free(buf);
+		printf("AES CTR mode not available now\n");
+		return 2;
+		break;
+	case AES_CCM:
+		free(buf);
+		printf("AES CCM mode not available now\n");
+		return 2;
+		break;
+	default:
+		free(buf);
+		return 2;
+		break;
+	}
+	free(buf);	
+	
+	// crypto successful?
+	if (!result){
+		printf("crypto error: you may use a inconsistent key or mode for decrypt\n");
 		
+		fclose(file_dst);
+
+		return 2;
+	}
+
 	fwrite(result, 1, result_length, file_dst);
+	free(result);
+	
 	fclose(file_dst);
 
 	return 0;
@@ -126,13 +130,42 @@ int crypto_file(bool bEncrypt, const char *file_in, const char *file_out)
 
 int main(int argc, char* argv[])
 {
-	const char *src = "E:/cocos2dx-extension/libs/extension/crypto/build/test.txt";
-	const char *dst = "E:/cocos2dx-extension/libs/extension/crypto/build/test_en.txt";
-	const char *dst2 = "E:/cocos2dx-extension/libs/extension/crypto/build/test_de.txt";
+	
+	if (argc < 4) {
+		fprintf(stderr, "Usage: %s input_file output_file key mode\n", argv[0]);
+		exit(1);
+	}
+	
+	AES_MODE mode;
+	mode = AES_ECB;
+	if (argc > 4) {
+		if (strcmp(argv[4], "ecb"))
+			mode = AES_ECB;
+		else if(strcmp(argv[4], "cbc"))
+			mode = AES_CBC;
+		else if(strcmp(argv[4], "ctr"))
+			mode = AES_CTR;
+		else if(strcmp(argv[4], "ccm"))
+			mode = AES_CCM;
+	}
 
-	crypto_file(true, src, dst);
-	//crypto_file(false, dst, dst2);
+	int bRet;
+	bRet = crypto_file(false, mode, argv[1],argv[2], (unsigned char*)argv[3]);
+	if (bRet != 0) {
+		fprintf(stderr, "crypto failed, %s\n", argv[1]);
+		exit(1);
+	}
+	
+	/*
+	const char *src = "D:/cocos2dx-shader/libs/extension/crypto/build/test.txt";
+	const char *dst = "D:/cocos2dx-shader/libs/extension/crypto/build/test_en.txt";
+	const char *dst2 = "D:/cocos2dx-shader/libs/extension/crypto/build/test_de.txt";
 
+	unsigned char key[16] = {0xf0,0xf1,0xf2,0xf3,0xf4,0xf5,0xf6,0xf7,0xf8,0xf9,0xfa,0xfb,0xfc,0xfd,0xfe,0xff};
+
+	crypto_file(true, AES_ECB, src, dst, key);
+	crypto_file(false, AES_ECB, dst, dst2, key);
+	*/
 	return 0;
 }
 

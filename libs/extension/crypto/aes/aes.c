@@ -763,55 +763,58 @@ void aes_decrypt( aes_context *ctx, uint8 input[16], uint8 output[16] )
 // raw 
 unsigned char* aes_encrypt_ecb(aes_context *ctx, uint8 *input, uint32 length, uint32 *ret_length)
 {
-	unsigned char buf_in[16];
+	unsigned char buf_in[AES_BLOCK_SIZE];
 	unsigned char *result;		
 	int blocks, idx, padding;
 
-	blocks = length / 16;
+	blocks = length / AES_BLOCK_SIZE;
 
-	result = (unsigned char *)malloc((blocks+1)*16);
+	result = (unsigned char *)malloc((blocks+1)*AES_BLOCK_SIZE);
 
 	for (idx=0; idx < blocks; idx++){
-		memset(buf_in, 0, 16);
-		memcpy(buf_in,  &input[idx*16], 16);
-		aes_encrypt(ctx, buf_in, &result[idx*16]);
+		memcpy(buf_in,  &input[idx*AES_BLOCK_SIZE], AES_BLOCK_SIZE);
+		aes_encrypt(ctx, buf_in, &result[idx*AES_BLOCK_SIZE]);
 	}
 
 	// last block
 	// PKCS7Padding
-	padding = 16 - length % 16;
-	memcpy(buf_in, &input[blocks*16], length % 16);
-	memset(buf_in + length % 16, padding, padding);
-	aes_encrypt(ctx, buf_in, &result[blocks*16]);
+	padding = AES_BLOCK_SIZE - length % AES_BLOCK_SIZE;
+	memcpy(buf_in, &input[blocks*AES_BLOCK_SIZE], length % AES_BLOCK_SIZE);
+	memset(buf_in + length % AES_BLOCK_SIZE, padding, padding);
+	aes_encrypt(ctx, buf_in, &result[blocks*AES_BLOCK_SIZE]);
 
 	blocks += 1;
 
-	*ret_length = blocks*16;
+	*ret_length = blocks*AES_BLOCK_SIZE;
 
 	return result;
 }
 // AES ecb mode
 // raw 
-unsigned char* aes_decrypt_ecb(aes_context *ctx, uint8 *input, uint32 length, uint32 *ret_length)
+unsigned char* aes_decrypt_ecb(aes_context *ctx, uint8 *input, uint32 length, uint32 *ret_length, const char* iv)
 {
-	unsigned char buf_in[16];
+	unsigned char buf_in[AES_BLOCK_SIZE];
 	unsigned char *buf_out, *result;
 	unsigned char padding;
 	int blocks, idx;
 
-	blocks = length / 16;
-	if (length % 16 != 0 ) return NULL;
+	blocks = length / AES_BLOCK_SIZE;
+	if (length % AES_BLOCK_SIZE != 0 ) return NULL;
 
 	buf_out = (unsigned char *)malloc(length);
 
 	for (idx=0; idx < blocks; idx++){
-		memcpy(buf_in,  &input[idx*16], 16);
-		aes_decrypt(ctx, buf_in, &buf_out[idx*16]);
+		memcpy(buf_in,  &input[idx*AES_BLOCK_SIZE], AES_BLOCK_SIZE);
+		aes_decrypt(ctx, buf_in, &buf_out[idx*AES_BLOCK_SIZE]);
 	}
 
 	// last block
 	// padding fix bytes
 	padding = (buf_out[length-1]);
+	if (length < padding || padding > AES_BLOCK_SIZE){
+		free(buf_out);
+		return NULL;
+	}
 
 	*ret_length = length - padding;
 
@@ -823,10 +826,94 @@ unsigned char* aes_decrypt_ecb(aes_context *ctx, uint8 *input, uint32 length, ui
 	return result;
 }
 
-// AES cbc mode
-void aes_encrypt_cbc(aes_context *ctx, uint8 *input, uint32 length, uint8 *output)
+void xor_buf(const char* in, char *out, size_t size)
 {
+	size_t idx;
+	for (idx = 0; idx < size; idx ++)
+		out[idx] ^= in[idx];
+}
 
+// AES cbc mode
+unsigned char* aes_encrypt_cbc(aes_context *ctx, uint8 *input, uint32 length, uint32 *ret_length, const char* iv)
+{
+	unsigned char buf_in[AES_BLOCK_SIZE];
+	unsigned char buf_out[AES_BLOCK_SIZE];
+	unsigned char *result;		
+	int blocks, idx, padding;
+
+	blocks = length / AES_BLOCK_SIZE;
+
+	result = (unsigned char *)malloc((blocks+1)*AES_BLOCK_SIZE);
+
+	// initialize vector
+	memcpy(buf_out, iv, AES_BLOCK_SIZE);
+	for (idx=0; idx < blocks; idx++){
+		memcpy(buf_in,  &input[idx*AES_BLOCK_SIZE], AES_BLOCK_SIZE);
+
+		/* encrypt */
+		xor_buf(buf_in, buf_out, AES_BLOCK_SIZE);
+		aes_encrypt(ctx, buf_out, &result[idx*AES_BLOCK_SIZE]);
+	}
+
+	// last block
+	// PKCS7Padding
+	padding = AES_BLOCK_SIZE - length % AES_BLOCK_SIZE;
+	memcpy(buf_in, &input[blocks*AES_BLOCK_SIZE], length % AES_BLOCK_SIZE);
+	memset(buf_in + length % AES_BLOCK_SIZE, padding, padding);
+
+	/* encrypt */
+	xor_buf(buf_in, buf_out, AES_BLOCK_SIZE);
+	aes_encrypt(ctx, buf_out, &result[blocks*AES_BLOCK_SIZE]);
+
+	blocks += 1;
+
+	*ret_length = blocks*AES_BLOCK_SIZE;
+
+	return result;
+}
+
+unsigned char* aes_decrypt_cbc(aes_context *ctx, uint8 *input, uint32 length, uint32 *ret_length, const char* iv)
+{
+	unsigned char buf_in[AES_BLOCK_SIZE];
+	unsigned char buf_out[AES_BLOCK_SIZE];
+	unsigned char *buf, *result;
+	unsigned char padding;
+	int blocks, idx;
+
+	blocks = length / AES_BLOCK_SIZE;
+	if (length % AES_BLOCK_SIZE != 0 ) return NULL;
+
+	buf = (unsigned char *)malloc(length);
+
+	// initialize vector
+	memcpy(buf_out, iv, AES_BLOCK_SIZE);
+	for (idx=0; idx < blocks; idx++){
+		memcpy(buf_in,  &input[idx*AES_BLOCK_SIZE], AES_BLOCK_SIZE);
+
+		// decrypt
+		aes_decrypt(ctx, buf_in, &buf[idx*AES_BLOCK_SIZE]);
+		xor_buf(buf_out, &buf[idx*AES_BLOCK_SIZE], AES_BLOCK_SIZE);
+
+		// for next
+		memcpy(buf_out, &input[idx*AES_BLOCK_SIZE], AES_BLOCK_SIZE);
+	}
+
+	// last block
+	// padding fix bytes
+	padding = buf[length-1];
+	if (length < padding || padding > AES_BLOCK_SIZE){
+		free(buf);
+		return 0;
+	}
+
+	*ret_length = length - padding;
+
+	result = (unsigned char *)malloc(length-padding);
+	memcpy(result, buf, length-padding);
+
+	free(buf);
+
+	return result;
 }
 
 // AES ctr mode
