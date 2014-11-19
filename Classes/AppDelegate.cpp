@@ -27,7 +27,7 @@ THE SOFTWARE.
 #include <vector>
 #include <string>
 
-#include "demo.h"
+#include "demo/demo.h"
 
 USING_NS_CC;
 using namespace std;

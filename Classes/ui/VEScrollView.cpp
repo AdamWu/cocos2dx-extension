@@ -14,6 +14,7 @@ bool VEScrollView::init()
 	m_scrollBar = NULL;
 	m_barScale = 0.f;
 
+
 	m_contentSize = CCSizeMake(0, 0);
 
     m_pContainer = CCNode::create();
@@ -22,6 +23,8 @@ bool VEScrollView::init()
 
 	this->setTouchEnabled(true);
 	m_bTouchEnabled = true;
+
+	m_touchHandler = NULL;
 
 	return true;
 }
@@ -54,6 +57,8 @@ void VEScrollView::setViewSize(CCSize size)
 {
 	m_viewSize = size;
 
+	setContentSize(m_viewSize);
+
 	m_pContainer->setPositionY(0);
 }
 
@@ -70,22 +75,26 @@ void VEScrollView::setContentOffset(CCPoint offset)
 
 CCRect VEScrollView::boundingBox()
 {
-	return CCRectMake(-m_viewSize.width*0.5f,
-                      -m_viewSize.height*0.5,
-                      m_viewSize.width,
-                      m_viewSize.height);
+	CCRect rect =  CCRectMake(-m_viewSize.width*0.5f,
+		-m_viewSize.height*0.5,
+		m_viewSize.width,
+		m_viewSize.height);
+	
+	return CCRectApplyAffineTransform(rect, nodeToParentTransform());
 }
 
 
 bool VEScrollView::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
 {
-    CCPoint localPoint = convertTouchToNodeSpace(pTouch);
-    if(boundingBox().containsPoint(localPoint))
+	CCPoint localPoint = (CCPoint)pTouch->getLocation();
+	CCRect box = boundingBox();
+    if(box.containsPoint(localPoint))
     {
         m_fTouchOffset = 0;
 		m_fIntensity = 0.f;
 		m_bTouching=true;
 		makeScrollBar();
+		return false;
 	}
     return true;
 }
@@ -488,14 +497,15 @@ CCNode *VEScrollView::touchCheck(CCPoint touchPoint)
     if(children == NULL)
         return NULL;
 
-	CCPoint pos = this->convertToNodeSpace(touchPoint);
 	CCPoint np = m_pContainer->convertToNodeSpace(touchPoint);
     for(int i=0; i<children->count(); i++)
     {
         CCNode *node = (CCNode*)children->objectAtIndex(i);
 		CCRect box = node->boundingBox();
         if(node->boundingBox().containsPoint(np)){
-			CCLOG("click node %d %p", i, node);
+			//CCLOG("click node %d %p\n", i, node);
+			if (m_touchListener && m_touchHandler) 
+				(m_touchListener->*m_touchHandler)(node);
 			return node;
 		}
     }

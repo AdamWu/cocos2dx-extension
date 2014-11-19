@@ -1,5 +1,5 @@
 #include "scene_ui.h"
-#include "demo.h"
+#include "demo/demo.h"
 #include "ui/VEScrollView.h"
 
 USING_NS_CC;

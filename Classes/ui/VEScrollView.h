@@ -25,6 +25,9 @@ enum ScrollViewType
 	SCROLLVIEW_VERTICAL,
 };
 
+
+typedef void (CCObject::*scroll_touch)(CCObject*);
+
 class VEScrollView : public CCLayer
 {
 public:
@@ -73,6 +76,15 @@ public:
 	void removeAllCells();
 	CCArray* getAllCells();
 
+	// callback
+	void addTouchHandler(CCObject *listener, scroll_touch callback)
+	{
+		m_touchListener=listener;
+		m_touchHandler=callback;
+	};
+
+	CCNode *touchCheck(CCPoint touchPoint);
+
 protected:
 	virtual void update(float dt);
 
@@ -80,7 +92,6 @@ protected:
 	virtual void makeScrollBar();
 	void fadeScrollBar();
 	bool easing(float tY);
-	CCNode *touchCheck(CCPoint touchPoint);
 protected:
 	// scroll-view type
 	ScrollViewType m_eType;
@@ -113,6 +124,9 @@ protected:
 	CCScale9Sprite* m_scrollBar;
 	float m_barScale;
 	CCSize m_barSize;
+
+	CCObject *m_touchListener;
+	scroll_touch m_touchHandler;
 };
 
 #endif //__VESCROLLVIEW_H__

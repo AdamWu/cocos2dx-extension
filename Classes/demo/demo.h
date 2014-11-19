@@ -22,16 +22,6 @@ public:
     // implement the "static node()" method manually
     CREATE_FUNC(Demo);
 
-
-	void test1();
-	void test2();
-	void test3();
-	void test4();
-	void rotate3d(float dt);
-
-	void test5();
-	void test6();
-
 	virtual void ccKeyboardBegin(unsigned int INparam);
 	virtual void ccKeyboardEnd(unsigned int INparam);
 

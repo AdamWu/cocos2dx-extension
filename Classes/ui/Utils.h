@@ -129,6 +129,11 @@ inline int trueMod(int x, int m)
     return (x % m + m) % m;
 }
 
+inline int ceil_f(float x, int value=1)
+{
+	return (int(x)/value)*value;
+}
+
 inline CCPoint inWorldSpace(CCNode* node)
 {
     if(node->getParent())

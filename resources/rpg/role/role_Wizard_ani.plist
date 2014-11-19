@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>animations</key>
+    <dict>
+        <key>run</key>
+        <dict>
+            <key>delay</key>
+            <real>0.15</real>
+            <key>frames</key>
+            <array>
+                <string>1/run/bpfs_pao_1_00010.png</string>
+                <string>1/run/bpfs_pao_1_00011.png</string>
+                <string>1/run/bpfs_pao_1_00012.png</string>
+                <string>1/run/bpfs_pao_1_00013.png</string>
+                <string>1/run/bpfs_pao_1_00014.png</string>
+                <string>1/run/bpfs_pao_1_00015.png</string>
+                <string>1/run/bpfs_pao_1_00016.png</string>
+                <string>1/run/bpfs_pao_1_00017.png</string>
+            </array>
+        </dict>
+    </dict>
+</dict>
+</plist>
