@@ -14,7 +14,7 @@
     <ProjectGuid>{B8BF9E81-35FD-4582-BA1C-B85FA365BABB}</ProjectGuid>
     <RootNamespace>shaderwin32</RootNamespace>
     <Keyword>Win32Proj</Keyword>
-    <ProjectName>shader</ProjectName>
+    <ProjectName>extension</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -67,7 +67,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\libs\cocos2dx;$(ProjectDir)..\libs\cocos2dx\include;$(ProjectDir)..\libs\cocos2dx\kazmath\include;$(ProjectDir)..\libs\cocos2dx\platform\win32;$(ProjectDir)..\libs\cocos2dx\platform\third_party\win32\OGLES;..\Classes;$(ProjectDir)..\libs\extensions;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\libs\cocos2dx;$(ProjectDir)..\libs\cocos2dx\include;$(ProjectDir)..\libs\cocos2dx\kazmath\include;$(ProjectDir)..\libs\cocos2dx\platform\win32;$(ProjectDir)..\libs\cocos2dx\platform\third_party\win32\OGLES;..\Classes;$(ProjectDir)..\libs\extension;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;COCOS2D_DEBUG=1;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -79,7 +79,7 @@
       <DisableSpecificWarnings>4267;4251;4244;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>opengl32.lib;glew32.lib;libcocos2d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;glew32.lib;libcocos2d.lib;libextension.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(ProjectName).exe</OutputFile>
       <AdditionalLibraryDirectories>$(OutDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -122,13 +122,19 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
-    <ClCompile Include="..\Classes\Demo.cpp" />
-    <ClCompile Include="..\Classes\demo\scene_blind.cpp" />
-    <ClCompile Include="..\Classes\demo\scene_bloom.cpp" />
-    <ClCompile Include="..\Classes\demo\scene_blur.cpp" />
-    <ClCompile Include="..\Classes\demo\scene_frost.cpp" />
-    <ClCompile Include="..\Classes\demo\scene_stream.cpp" />
-    <ClCompile Include="..\Classes\demo\scene_ui.cpp" />
+    <ClCompile Include="..\Classes\demo\demo.cpp" />
+    <ClCompile Include="..\Classes\demo\gameRPG\config.cpp" />
+    <ClCompile Include="..\Classes\demo\gameRPG\game_bg.cpp" />
+    <ClCompile Include="..\Classes\demo\gameRPG\game_controller.cpp" />
+    <ClCompile Include="..\Classes\demo\gameRPG\game_ui.cpp" />
+    <ClCompile Include="..\Classes\demo\gameRPG\scene_rpg.cpp" />
+    <ClCompile Include="..\Classes\demo\shader\demo_shader.cpp" />
+    <ClCompile Include="..\Classes\demo\shader\scene_blind.cpp" />
+    <ClCompile Include="..\Classes\demo\shader\scene_bloom.cpp" />
+    <ClCompile Include="..\Classes\demo\shader\scene_blur.cpp" />
+    <ClCompile Include="..\Classes\demo\shader\scene_frost.cpp" />
+    <ClCompile Include="..\Classes\demo\shader\scene_stream.cpp" />
+    <ClCompile Include="..\Classes\demo\ui\scene_ui.cpp" />
     <ClCompile Include="..\Classes\shader\blind_sprite.cpp" />
     <ClCompile Include="..\Classes\shader\bloom_sprite.cpp" />
     <ClCompile Include="..\Classes\shader\blur_sprite.cpp" />
@@ -143,13 +149,20 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\AppDelegate.h" />
-    <ClInclude Include="..\Classes\Demo.h" />
-    <ClInclude Include="..\Classes\demo\scene_blind.h" />
-    <ClInclude Include="..\Classes\demo\scene_bloom.h" />
-    <ClInclude Include="..\Classes\demo\scene_blur.h" />
-    <ClInclude Include="..\Classes\demo\scene_frost.h" />
-    <ClInclude Include="..\Classes\demo\scene_stream.h" />
-    <ClInclude Include="..\Classes\demo\scene_ui.h" />
+    <ClInclude Include="..\Classes\demo\demo.h" />
+    <ClInclude Include="..\Classes\demo\gameRPG\config.h" />
+    <ClInclude Include="..\Classes\demo\gameRPG\game_bg.h" />
+    <ClInclude Include="..\Classes\demo\gameRPG\game_controller.h" />
+    <ClInclude Include="..\Classes\demo\gameRPG\game_ui.h" />
+    <ClInclude Include="..\Classes\demo\gameRPG\scene_rpg.h" />
+    <ClInclude Include="..\Classes\demo\gameRPG\singleton.h" />
+    <ClInclude Include="..\Classes\demo\shader\demo_shader.h" />
+    <ClInclude Include="..\Classes\demo\shader\scene_blind.h" />
+    <ClInclude Include="..\Classes\demo\shader\scene_bloom.h" />
+    <ClInclude Include="..\Classes\demo\shader\scene_blur.h" />
+    <ClInclude Include="..\Classes\demo\shader\scene_frost.h" />
+    <ClInclude Include="..\Classes\demo\shader\scene_stream.h" />
+    <ClInclude Include="..\Classes\demo\ui\scene_ui.h" />
     <ClInclude Include="..\Classes\shader\blind_sprite.h" />
     <ClInclude Include="..\Classes\shader\bloom_sprite.h" />
     <ClInclude Include="..\Classes\shader\blur_sprite.h" />
@@ -171,6 +184,9 @@
     <ProjectReference Include="..\..\..\..\CocosDenshion\proj.win32\CocosDenshion.vcxproj">
       <Project>{f8edd7fa-9a51-4e80-baeb-860825d2eac6}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\libExtension\libExtension.vcxproj">
+      <Project>{a2ff7b7c-fc3e-47bd-8dcf-4862c06a7c2a}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

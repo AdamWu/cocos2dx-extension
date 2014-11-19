@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "shader", "shader.vcxproj", "{B8BF9E81-35FD-4582-BA1C-B85FA365BABB}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "extension", "shader.vcxproj", "{B8BF9E81-35FD-4582-BA1C-B85FA365BABB}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libcocos2d", "..\libs\cocos2dx\proj.win32\cocos2d.vcxproj", "{98A51BA8-FC3A-415B-AC8F-8C7BD464E93E}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libExtension", "..\libs\extension\proj.win32\libExtension.vcxproj", "{A2FF7B7C-FC3E-47BD-8DCF-4862C06A7C2A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,6 +21,10 @@ Global
 		{98A51BA8-FC3A-415B-AC8F-8C7BD464E93E}.Debug|Win32.Build.0 = Debug|Win32
 		{98A51BA8-FC3A-415B-AC8F-8C7BD464E93E}.Release|Win32.ActiveCfg = Release|Win32
 		{98A51BA8-FC3A-415B-AC8F-8C7BD464E93E}.Release|Win32.Build.0 = Release|Win32
+		{A2FF7B7C-FC3E-47BD-8DCF-4862C06A7C2A}.Debug|Win32.ActiveCfg = Debug|Win32
+		{A2FF7B7C-FC3E-47BD-8DCF-4862C06A7C2A}.Debug|Win32.Build.0 = Debug|Win32
+		{A2FF7B7C-FC3E-47BD-8DCF-4862C06A7C2A}.Release|Win32.ActiveCfg = Release|Win32
+		{A2FF7B7C-FC3E-47BD-8DCF-4862C06A7C2A}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
