@@ -27,6 +27,9 @@
     <Filter Include="Classes\demo\ui">
       <UniqueIdentifier>{c73735a5-646f-4710-ba3d-68211ccb62d9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Classes\math">
+      <UniqueIdentifier>{63d650a6-5491-478d-a1e7-7189ca10bda5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Classes\AppDelegate.cpp">
@@ -103,6 +106,9 @@
     </ClCompile>
     <ClCompile Include="..\Classes\demo\gameRPG\game_bg.cpp">
       <Filter>Classes\demo\gameRPG</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\math\vector.cpp">
+      <Filter>Classes\math</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -186,6 +192,12 @@
     </ClInclude>
     <ClInclude Include="..\Classes\demo\gameRPG\game_bg.h">
       <Filter>Classes\demo\gameRPG</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\math\math.h">
+      <Filter>Classes\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\math\vector.h">
+      <Filter>Classes\math</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

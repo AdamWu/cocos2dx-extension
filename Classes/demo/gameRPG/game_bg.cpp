@@ -4,6 +4,8 @@
 #include "game_controller.h"
 #include "game_bg.h"
 #include "game_ui.h"
+#include "math/vector.h"
+#include "math/math.h"
 
 USING_NS_CC;
 
@@ -12,6 +14,8 @@ const float GRID_HEIGHT = 21;
 
 const float MAP_OFFSET_X = 0;
 const float MAP_OFFSET_Y = 10;
+
+int TAG_WARNING = 1000;
 
 // calculate the aligned pos for any informal position
 CCPoint getCellPos(float x, float y, bool bOdd)
@@ -148,6 +152,7 @@ void GameBgLayer::select(Building *pBuilding)
 	// warning color
 	sprintf(buf, "rpg/ground_grid/e%d.png", pInfo->size_map);
 	CCSprite *pSprite2 = CCSprite::create(buf);
+	pSprite2->setTag(TAG_WARNING);
 	pSprite2->setPosition(ccp(land->getContentSize().width/2, land->getContentSize().height/2));
 	land->addChild(pSprite2);
 
@@ -157,18 +162,54 @@ void GameBgLayer::select(Building *pBuilding)
 	land->addChild(pSprite2);
 }
 
+void setWarning(Building *pBuilding, bool bColllide)
+{
+	if (!pBuilding || !pBuilding->pRes) return;
+
+	CCSprite *land = (CCSprite*)pBuilding->pRes->getChildByTag(0);
+	if (land){
+		char buf[1024];
+		BuildingInfo *pInfo = Config::GetInstance()->getBuildingInfo(pBuilding->buildingid);
+
+		CCSprite *warning = (CCSprite*)land->getChildByTag(TAG_WARNING);
+		if (warning){
+			// warning color
+			if (bColllide)
+				sprintf(buf, "rpg/ground_grid/d%d.png", pInfo->size_map);
+			else
+				sprintf(buf, "rpg/ground_grid/e%d.png", pInfo->size_map);
+				
+			CCTexture2D *tex = CCTextureCache::sharedTextureCache()->addImage(buf);
+			warning->setTexture(tex);
+		}
+	}
+}
+
+
 // check if touch a building
 Building * GameBgLayer::pickup(CCPoint pos)
 {
 	Building *pBuilding = NULL;
+	BuildingInfo *pInfo = NULL;
 	CCPoint np = m_root->convertToNodeSpace(pos);
 	for(std::vector<Building*>::iterator iter = m_items.begin(); iter != m_items.end(); ++ iter)
 	{
-		CCNode *node = (*iter)->pRes;
-		CCRect box = node->boundingBox();
-		pos = np - box.origin;
-		if(pos.x+pos.y > -70 && pos.x+pos.y<70 && pos.x-pos.y>-70 && pos.x-pos.y<70){
-			pBuilding = *iter;
+		pInfo = Config::GetInstance()->getBuildingInfo((*iter)->buildingid);
+		int rect_x = pInfo->size_map * GRID_WIDTH;
+		int rect_y = pInfo->size_map * GRID_HEIGHT;
+		if (abs((*iter)->pos.x - np.x) <= rect_x/2 && abs((*iter)->pos.y - np.y) <= rect_y/2){
+			// more deep check 
+			Vector A((*iter)->pos.x - rect_x/2, (*iter)->pos.y);
+			Vector B((*iter)->pos.x, (*iter)->pos.y + rect_y/2);
+			Vector C((*iter)->pos.x + rect_x/2, (*iter)->pos.y);
+			Vector D((*iter)->pos.x, (*iter)->pos.y - rect_y/2);
+			Vector P(np.x, np.y);
+			bool bIn1 = pointInTriangle(A, B, C, P);
+			bool bIn2 = pointInTriangle(A, C, D, P);
+			if (bIn1 || bIn2) { // got
+				pBuilding = *iter;
+				break;
+			}
 		}
 	}
 
@@ -176,18 +217,30 @@ Building * GameBgLayer::pickup(CCPoint pos)
 }
 
 // check the collision btw buildings
-bool GameBgLayer::collide(CCNode *pItem)
+bool GameBgLayer::collide(Building *pBuilding)
 {
-	CCNode *pNode = NULL;
-	CCPoint np = pItem->getPosition();
+	BuildingInfo *pInfo = Config::GetInstance()->getBuildingInfo(pBuilding->buildingid);
+	Vector sizeA(pInfo->size_map * GRID_WIDTH, pInfo->size_map * GRID_HEIGHT);
+	Vector A1(pBuilding->pos.x - sizeA.getX()/2, pBuilding->pos.y);
+	Vector B1(pBuilding->pos.x, pBuilding->pos.y + sizeA.getY()/2);
+	Vector C1(pBuilding->pos.x + sizeA.getX()/2, pBuilding->pos.y);
+	Vector D1(pBuilding->pos.x, pBuilding->pos.y - sizeA.getY()/2);
 	for(std::vector<Building*>::iterator iter = m_items.begin(); iter != m_items.end(); ++ iter)
 	{
-		CCNode *pNode = (*iter)->pRes;
-		if (pItem != pNode){
-			CCRect box = pNode->boundingBox();
-			CCPoint pos = np - box.origin;
-			if(pos.x*pos.x+pos.y*pos.y < 141*141){
+		if (pBuilding != (*iter)){
+			pInfo = Config::GetInstance()->getBuildingInfo((*iter)->buildingid);
+			Vector sizeB(pInfo->size_map * GRID_WIDTH, pInfo->size_map * GRID_HEIGHT);
+			if (abs((*iter)->pos.x - pBuilding->pos.x) <= (sizeA.getX()+sizeB.getX())/2 && 
+				abs((*iter)->pos.y - pBuilding->pos.y) <= (sizeA.getY()+sizeB.getY())/2){
 				// more check collide
+				Vector A2((*iter)->pos.x - sizeA.getX()/2, (*iter)->pos.y);
+				Vector B2((*iter)->pos.x, (*iter)->pos.y + sizeA.getY()/2);
+				Vector C2((*iter)->pos.x + sizeA.getX()/2, (*iter)->pos.y);
+				Vector D2((*iter)->pos.x, (*iter)->pos.y - sizeA.getY()/2);
+				if (triangleIntersect(A1, B1, C1, A2, B2, C2) ||
+					triangleIntersect(A1, C1, D1, A2, B2, C2) ||
+					triangleIntersect(A1, B1, C1, A2, C2, D2) ||
+					triangleIntersect(A1, C1, D1, A2, C2, D2))
 				return true;
 			}
 		}
@@ -261,7 +314,10 @@ void GameBgLayer::ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent)
 	case TOUCH_PICK:
 		if (m_pSelected) {
 			pos = m_root->getPosition();
-			m_pSelected->pRes->setPosition(getCellPos(currPoint.x-pos.x, currPoint.y-pos.y, m_pSelected->size%2==0));
+			m_pSelected->pos = getCellPos(currPoint.x-pos.x, currPoint.y-pos.y, m_pSelected->size%2==0);
+			m_pSelected->pRes->setPosition(m_pSelected->pos);
+
+			setWarning(m_pSelected, collide(m_pSelected));
 		}
 		break;
 	default:
@@ -388,8 +444,8 @@ bool GameBgLayer::saveMap()
 		tinyxml2::XMLElement *pElement = pDoc->NewElement("building");
 		root->LinkEndChild(pElement);
 		pElement->SetAttribute("id", (*it)->buildingid);
-		pElement->SetAttribute("x", (*it)->pRes->getPositionX());
-		pElement->SetAttribute("y", (*it)->pRes->getPositionY());
+		pElement->SetAttribute("x", (*it)->pos.x);
+		pElement->SetAttribute("y", (*it)->pos.y);
 	}
 
 	tinyxml2::XMLError error = pDoc->SaveFile("map.xml");

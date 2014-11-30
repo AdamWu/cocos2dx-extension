@@ -79,7 +79,7 @@
       <DisableSpecificWarnings>4267;4251;4244;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>opengl32.lib;glew32.lib;libcocos2d.lib;libextension.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;glew32.lib;libcocos2d.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(ProjectName).exe</OutputFile>
       <AdditionalLibraryDirectories>$(OutDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -135,6 +135,7 @@
     <ClCompile Include="..\Classes\demo\shader\scene_frost.cpp" />
     <ClCompile Include="..\Classes\demo\shader\scene_stream.cpp" />
     <ClCompile Include="..\Classes\demo\ui\scene_ui.cpp" />
+    <ClCompile Include="..\Classes\math\vector.cpp" />
     <ClCompile Include="..\Classes\shader\blind_sprite.cpp" />
     <ClCompile Include="..\Classes\shader\bloom_sprite.cpp" />
     <ClCompile Include="..\Classes\shader\blur_sprite.cpp" />
@@ -163,6 +164,8 @@
     <ClInclude Include="..\Classes\demo\shader\scene_frost.h" />
     <ClInclude Include="..\Classes\demo\shader\scene_stream.h" />
     <ClInclude Include="..\Classes\demo\ui\scene_ui.h" />
+    <ClInclude Include="..\Classes\math\math.h" />
+    <ClInclude Include="..\Classes\math\vector.h" />
     <ClInclude Include="..\Classes\shader\blind_sprite.h" />
     <ClInclude Include="..\Classes\shader\bloom_sprite.h" />
     <ClInclude Include="..\Classes\shader\blur_sprite.h" />

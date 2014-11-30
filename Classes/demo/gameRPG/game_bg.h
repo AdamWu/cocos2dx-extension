@@ -46,7 +46,7 @@ public:
 	void addBuildingNew(int buildingid);
 	Building * pickup(CCPoint pos);
 	
-	bool collide(CCNode *pItem);
+	bool collide(Building *pBuilding);
 	
 protected:
 	bool loadMap();
