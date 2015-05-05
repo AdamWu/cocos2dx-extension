@@ -6,9 +6,9 @@ uniform sampler2D u_texture;
 uniform sampler2D tex_noise;
 
 uniform vec2 pix_size;
-uniform float PixelX = 0.5;
-uniform float PixelY = 0.5;
-uniform float Freq = 0.115;
+const float PixelX = 0.5;
+const float PixelY = 0.5;
+const float Freq = 0.115;
 
 varying vec2 v_texCoord;
 varying vec4 v_fragmentColor;

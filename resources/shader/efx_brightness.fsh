@@ -6,8 +6,8 @@ uniform sampler2D u_texture;
 varying vec2 v_texCoord;
 varying vec4 v_fragmentColor;
 
-uniform float intensity_offset = 1.0;
-uniform float intensity_scale = 2.0;
+const float intensity_offset = 1.0;
+const float intensity_scale = 2.0;
 
 void main(void)  
 {   
