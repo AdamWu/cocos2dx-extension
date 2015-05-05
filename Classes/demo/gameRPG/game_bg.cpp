@@ -1,5 +1,5 @@
 #include <string>
-#include "tinyxml2/tinyxml2.h"
+//#include "tinyxml2/tinyxml2.h"
 #include "config.h"
 #include "game_controller.h"
 #include "game_bg.h"
@@ -197,7 +197,7 @@ Building * GameBgLayer::pickup(CCPoint pos)
 		pInfo = Config::GetInstance()->getBuildingInfo((*iter)->buildingid);
 		int rect_x = pInfo->size_map * GRID_WIDTH;
 		int rect_y = pInfo->size_map * GRID_HEIGHT;
-		if (abs((*iter)->pos.x - np.x) <= rect_x/2 && abs((*iter)->pos.y - np.y) <= rect_y/2){
+		if (abs(int((*iter)->pos.x - np.x)) <= rect_x/2 && abs(int((*iter)->pos.y - np.y)) <= rect_y/2){
 			// more deep check 
 			Vector A((*iter)->pos.x - rect_x/2, (*iter)->pos.y);
 			Vector B((*iter)->pos.x, (*iter)->pos.y + rect_y/2);
@@ -230,8 +230,8 @@ bool GameBgLayer::collide(Building *pBuilding)
 		if (pBuilding != (*iter)){
 			pInfo = Config::GetInstance()->getBuildingInfo((*iter)->buildingid);
 			Vector sizeB(pInfo->size_map * GRID_WIDTH, pInfo->size_map * GRID_HEIGHT);
-			if (abs((*iter)->pos.x - pBuilding->pos.x) <= (sizeA.getX()+sizeB.getX())/2 && 
-				abs((*iter)->pos.y - pBuilding->pos.y) <= (sizeA.getY()+sizeB.getY())/2){
+			if (abs(int((*iter)->pos.x - pBuilding->pos.x)) <= (sizeA.getX()+sizeB.getX())/2 && 
+				abs(int((*iter)->pos.y - pBuilding->pos.y)) <= (sizeA.getY()+sizeB.getY())/2){
 				// more check collide
 				Vector A2((*iter)->pos.x - sizeA.getX()/2, (*iter)->pos.y);
 				Vector B2((*iter)->pos.x, (*iter)->pos.y + sizeA.getY()/2);

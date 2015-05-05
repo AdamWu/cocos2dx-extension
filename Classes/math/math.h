@@ -18,7 +18,7 @@
 
 static inline bool isZero(float v)
 {
-	return abs(v) <= FLOAT_ZERO && abs(v) >= -FLOAT_ZERO; 
+	return v <= FLOAT_ZERO && v >= -FLOAT_ZERO; 
 }
 
 // check whether point P in triangle ABC

@@ -1,8 +1,5 @@
 #include "PageScrollView.h"
 #include "Utils.h"
-#include <math.h>
-#include <algorithm>
-
 
 #define PI 3.1415926
 
@@ -158,7 +155,7 @@ void PageScrollView::ccTouchesEnded(cocos2d::CCSet *pTouches, cocos2d::CCEvent *
         if(v0 > 6)
         {
             direction = v/v0;
-            moveTargetId = max(0, min(getCurrentNodeId()-direction , size-1));
+            moveTargetId = MAX(0, MIN(getCurrentNodeId()-direction , size-1));
         }
         else
             moveTargetId = getCurrentNodeId();

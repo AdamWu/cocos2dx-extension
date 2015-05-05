@@ -1,6 +1,5 @@
 #include <string>
 #include "config.h"
-#include "tinyxml2/tinyxml2.h"
 
 Config::Config()
 {
@@ -18,7 +17,12 @@ Config::~Config()
 bool Config::init()
 {
 	tinyxml2::XMLDocument doc;  
-	doc.LoadFile("rpg/buildings/building_info.xml");
+	unsigned long len = 0;
+	unsigned char* data = CCFileUtils::sharedFileUtils()->getFileData("rpg/buildings/building_info.xml", "r", &len);
+	tinyxml2::XMLError code = doc.Parse((const char*)data, len);
+	if (code != tinyxml2::XML_SUCCESS) {
+		CCLOG("xml load error! code:%d", code);
+	}
 
 	tinyxml2::XMLElement *root  = doc.RootElement();//plist  
 	tinyxml2::XMLElement *dict = root->FirstChildElement();//dict 
@@ -29,7 +33,7 @@ bool Config::init()
 		dict = key->NextSiblingElement();
 		if (dict == NULL) {
 			// error
-			printf("format error for key:%s", key->GetText());
+			CCLOG("format error for key:%s", key->GetText());
 			return false;
 		}
 		// 
@@ -42,7 +46,7 @@ bool Config::init()
 			value = key->NextSiblingElement();
 			if (value == NULL) {
 				// error
-				printf("format error for key:%s", key->GetText());
+				CCLOG("format error for key:%s", key->GetText());
 				CC_SAFE_DELETE(buildinfo);
 				return false;
 			}

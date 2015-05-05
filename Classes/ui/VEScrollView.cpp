@@ -152,7 +152,7 @@ void VEScrollView::ccTouchEnded(CCTouch *pTouch, CCEvent *pEvent)
         fadeScrollBar();
         if(m_fTouchOffset != 0)
         {
-            float offset = std::abs(m_fTouchOffset);
+            float offset = fabsf(m_fTouchOffset);
             m_moveDir = m_fTouchOffset / offset;
             m_fTouchOffset = offset;
         }
@@ -245,8 +245,8 @@ void VEScrollView::update(float dt)
     {
 		CCPoint pos = m_pContainer->getPosition();
 		CCSize gap = m_contentSize - m_viewSize;
-		gap.width = max(gap.width, 0);
-		gap.height = max(gap.height, 0);
+		gap.width = MAX(gap.width, 0);
+		gap.height = MAX(gap.height, 0);
 
 		switch (m_eType){
 		case SCROLLVIEW_HORIZONTAL:
@@ -291,12 +291,12 @@ void VEScrollView::update(float dt)
 	{
 		CCPoint pos = m_pContainer->getPosition();
 		CCSize gap = m_contentSize - m_viewSize;
-		gap.width = max(gap.width, 0);
-		gap.height = max(gap.height, 0);
-		pos.x = min(pos.x, 0);
-		pos.x = max(pos.x, -gap.width);
-		pos.y = max(pos.y, 0);
-		pos.y = min(pos.y, gap.height);
+		gap.width = MAX(gap.width, 0);
+		gap.height = MAX(gap.height, 0);
+		pos.x = MIN(pos.x, 0);
+		pos.x = MAX(pos.x, -gap.width);
+		pos.y = MAX(pos.y, 0);
+		pos.y = MIN(pos.y, gap.height);
 		
 
 		static bool bFirstHalf = true;
@@ -346,13 +346,13 @@ void VEScrollView::update(float dt)
 			if (pos.x > 0.f) { 
 				scale = 1.f - pos.x/m_viewSize.width;
 			}else if(pos.x < -(m_contentSize.width-m_viewSize.width)){
-				scale = 1.f - abs(pos.x+m_contentSize.width-m_viewSize.width)/m_viewSize.width;
+				scale = 1.f - fabsf(pos.x+m_contentSize.width-m_viewSize.width)/m_viewSize.width;
 			}
 			m_scrollBar->setScaleX(scale);
 			break;
 		case SCROLLVIEW_VERTICAL:
 			if (pos.y < 0.f) {
-				scale = 1.f - abs(pos.y)/m_viewSize.height;
+				scale = 1.f - fabsf(pos.y)/m_viewSize.height;
 			}else if(pos.y > m_contentSize.height-m_viewSize.height ){
 				scale = 1.f - (pos.y-m_contentSize.height+m_viewSize.height)/m_viewSize.height;
 			}
@@ -374,12 +374,12 @@ void VEScrollView::makeScrollBar()
 	switch (m_eType) {
 	case SCROLLVIEW_HORIZONTAL:
 		scale = m_viewSize.width/m_contentSize.width;
-		length_bar = max(int(m_viewSize.width*scale), 30);
+		length_bar = MAX(m_viewSize.width*scale, 30);
 		m_barScale = scale - (length_bar-int(m_viewSize.width*scale))/m_contentSize.width;
 		break;
 	case SCROLLVIEW_VERTICAL:
 		scale = m_viewSize.height/m_contentSize.height;
-		length_bar = max(int(m_viewSize.height*scale), 30);
+		length_bar = MAX(m_viewSize.height*scale, 30);
 		m_barScale = scale - (length_bar-int(m_viewSize.height*scale))/m_contentSize.height;
 		break;
 	default:
@@ -464,14 +464,14 @@ bool VEScrollView::easing(float target)
 	switch (m_eType){
 	case SCROLLVIEW_HORIZONTAL:
 		m_pContainer->setPositionX(pos.x + (target - pos.x) * 0.2);
-		if(std::abs(target - pos.x)<0.1 ){
+		if(fabsf(target - pos.x)<0.1 ){
 			m_pContainer->setPositionX(target);
 			return true;
 		}
 		break;
 	case SCROLLVIEW_VERTICAL:
 		m_pContainer->setPositionY(pos.y + (target - pos.y) * 0.2);
-		if(std::abs(target - pos.y)<0.1 ){
+		if(fabsf(target - pos.y)<0.1 ){
 			m_pContainer->setPositionY(target);
 			return true;
 		}

@@ -1,5 +1,4 @@
 #include <string>
-#include "tinyxml2/tinyxml2.h"
 #include "scene_rpg.h"
 #include "demo/demo.h"
 #include "ui/VEScrollView.h"

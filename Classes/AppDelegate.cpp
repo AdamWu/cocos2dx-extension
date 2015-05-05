@@ -50,7 +50,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	CCSize frameSize = pEGLView->getFrameSize();
 
     //pEGLView->setDesignResolutionSize(designResolutionSize.width, designResolutionSize.height, kResolutionNoBorder);
-
+	pEGLView->setDesignResolutionSize(960, 640, kResolutionFixedHeight);
 
     // turn on display FPS
     pDirector->setDisplayStats(true);

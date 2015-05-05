@@ -78,13 +78,11 @@
     <ClCompile Include="..\crypto\aes\aes.c" />
     <ClCompile Include="..\crypto\md5\md5.c" />
     <ClCompile Include="..\crypto\xxtea\xxtea.c" />
-    <ClCompile Include="..\tinyxml2\tinyxml2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\crypto\aes\aes.h" />
     <ClInclude Include="..\crypto\md5\md5.h" />
     <ClInclude Include="..\crypto\xxtea\xxtea.h" />
-    <ClInclude Include="..\tinyxml2\tinyxml2.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

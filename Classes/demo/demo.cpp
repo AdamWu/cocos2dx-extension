@@ -77,7 +77,7 @@ bool Demo::init()
 		CCMenuItemSprite* pMenuItem = CCMenuItemSprite::create(sprite, sprite, sprite, this, menu_selector(Demo::menuCallback));
 		m_pItemMenu->addChild(pMenuItem, i + 10000);
 		pMenuItem->setPosition(ccp(50 + i * CELL_WIDTH + CELL_WIDTH/2, winSize.height/2));
-		pMenuItem->setScale(0.2);
+		pMenuItem->setScale(0.3f);
 
 		CCLabelTTF* label = CCLabelTTF::create(g_aTestNames[i].c_str(), "Arial", 24); 
 		label->setPosition(ccp(500, -100));
@@ -178,7 +178,7 @@ void Demo::ccTouchesMoved(CCSet *pTouches, CCEvent *pEvent)
 	CCPoint curPos  = m_pItemMenu->getPosition();
 	CCPoint nextPos = ccp(curPos.x + nMoveX, curPos.y);
 
-	if (nextPos.x > 0.0f)
+	if (nextPos.x > 0.f)
 	{
 		m_pItemMenu->setPosition(CCPointZero);
 		return;
@@ -186,7 +186,9 @@ void Demo::ccTouchesMoved(CCSet *pTouches, CCEvent *pEvent)
 
 	if (nextPos.x < winSize.width-(TESTS_COUNT * CELL_WIDTH + CELL_WIDTH/2))
 	{
-		m_pItemMenu->setPosition(ccp(winSize.width-(TESTS_COUNT*CELL_WIDTH + CELL_WIDTH/2), 0));
+		if (winSize.width < TESTS_COUNT * CELL_WIDTH) {
+			m_pItemMenu->setPosition(ccp(winSize.width-(TESTS_COUNT*CELL_WIDTH + CELL_WIDTH/2), 0));
+		}
 		return;
 	}
 

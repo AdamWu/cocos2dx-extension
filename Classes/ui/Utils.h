@@ -13,7 +13,6 @@
 #pragma once
 
 #include <cocos2d.h>
-#include <vector>
 
 #include "CCScale9Sprite.h"
 
@@ -149,7 +148,7 @@ inline bool easing(CCNode *target, float tX)
 	float tempX = target->getPositionX();
 	target->setPositionX( tempX + (tX - tempX) * 0.25);
 
-	if(std::abs(tX - target->getPositionX())<0.1 ){
+	if(fabsf(tX - target->getPositionX())<0.1 ){
 		target->setPositionX(tX);
 		return true;
 	}

@@ -173,4 +173,3 @@ unsigned char *xxtea_decrypt(unsigned char *data, xxtea_long data_len, unsigned 
     return result;
 }
 
-/* }}} */

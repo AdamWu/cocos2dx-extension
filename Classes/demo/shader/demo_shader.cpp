@@ -83,10 +83,12 @@ bool Demo_shader::init()
 		}
 		CCMenuItemSprite* pMenuItem = CCMenuItemSprite::create(sprite, sprite, sprite, this, menu_selector(Demo_shader::menuCallback));
 		m_pItemMenu->addChild(pMenuItem, i + 10000);
+		pMenuItem->setAnchorPoint(ccp(0.5, 0.5));
 		pMenuItem->setPosition(ccp(50 + i * CELL_WIDTH + CELL_WIDTH/2, winSize.height/2));
-		pMenuItem->setScale(0.2);
+		pMenuItem->setScale(0.3f);
 
-		CCLabelTTF* label = CCLabelTTF::create(g_aTestNames[i].c_str(), "Arial", 24); 
+		CCLabelTTF* label = CCLabelTTF::create(g_aTestNames[i].c_str(), "Arial", 24);
+		label->setAnchorPoint(ccp(0.5, 0.5));
 		label->setPosition(ccp(500, -100));
 		label->setScale(5);
 		pMenuItem->addChild(label);

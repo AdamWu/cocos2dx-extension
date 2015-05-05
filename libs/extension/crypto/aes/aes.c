@@ -791,7 +791,7 @@ unsigned char* aes_encrypt_ecb(aes_context *ctx, uint8 *input, uint32 length, ui
 }
 // AES ecb mode
 // raw 
-unsigned char* aes_decrypt_ecb(aes_context *ctx, uint8 *input, uint32 length, uint32 *ret_length, const char* iv)
+unsigned char* aes_decrypt_ecb(aes_context *ctx, uint8 *input, uint32 length, uint32 *ret_length)
 {
 	unsigned char buf_in[AES_BLOCK_SIZE];
 	unsigned char *buf_out, *result;

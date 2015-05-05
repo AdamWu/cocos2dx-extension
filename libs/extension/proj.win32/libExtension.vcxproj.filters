@@ -7,9 +7,6 @@
     <Filter Include="crypto">
       <UniqueIdentifier>{927b1984-e097-42ea-bfbe-ea05e3e44657}</UniqueIdentifier>
     </Filter>
-    <Filter Include="tinyxml2">
-      <UniqueIdentifier>{0834d72c-fa5d-4fae-8111-c90560bfa1f1}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\crypto\aes\aes.c">
@@ -21,9 +18,6 @@
     <ClCompile Include="..\crypto\xxtea\xxtea.c">
       <Filter>crypto</Filter>
     </ClCompile>
-    <ClCompile Include="..\tinyxml2\tinyxml2.cpp">
-      <Filter>tinyxml2</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\crypto\aes\aes.h">
@@ -34,9 +28,6 @@
     </ClInclude>
     <ClInclude Include="..\crypto\xxtea\xxtea.h">
       <Filter>crypto</Filter>
-    </ClInclude>
-    <ClInclude Include="..\tinyxml2\tinyxml2.h">
-      <Filter>tinyxml2</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
