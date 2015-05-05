@@ -1,4 +1,4 @@
-APPNAME="HelloCpp"
+APPNAME="Explore"
 APP_ANDROID_NAME="org.cocos2dx.hellocpp"
 
 if [ -z "${SDK_ROOT+aaa}" ]; then

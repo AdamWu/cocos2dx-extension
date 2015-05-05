@@ -1,4 +1,5 @@
 APPNAME="HelloCpp"
+NDK_ROOT="/cygdrive/d/android-ndk-r9d"
 
 # options
 
@@ -51,7 +52,7 @@ fi
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 # ... use paths relative to current directory
-COCOS2DX_ROOT="$DIR/../../../.."
+COCOS2DX_ROOT="$DIR/../libs"
 APP_ROOT="$DIR/.."
 APP_ANDROID_ROOT="$DIR"
 
