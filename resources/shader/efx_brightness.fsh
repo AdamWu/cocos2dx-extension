@@ -13,7 +13,7 @@ void main(void)
 {   
     vec4 texColor = texture2D(u_texture, v_texCoord);
 	// gray value
-	float gray = dot(texColor.rgb, vec3(0.3f, 0.59f, 0.11f));
+	float gray = dot(texColor.rgb, vec3(0.3, 0.59, 0.11));
 	// new gray
 	float new_intensity = (gray + intensity_offset) * intensity_scale;
 	

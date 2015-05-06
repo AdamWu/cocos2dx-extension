@@ -24,8 +24,8 @@ void main()
     float distance = abs(v_texCoord[0]+v_texCoord[1]-offset)/1.414; 
 	// linear gradient 
 	// (1/width)x + y = 1
-	distance = 1.0f-(1.0f/width)*distance;
-	distance = max(distance, 0.0f);
+	distance = 1.0-(1.0/width)*distance;
+	distance = max(distance, 0.0);
     vec4 sample = vec4(0.0,0.0,0.0,0.0);
 	sample[0] = color[0] * distance;
 	sample[1] = color[1] * distance;
