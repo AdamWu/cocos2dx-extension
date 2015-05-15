@@ -133,6 +133,9 @@
     <ClCompile Include="..\Classes\demo\shader\scene_bloom.cpp" />
     <ClCompile Include="..\Classes\demo\shader\scene_blur.cpp" />
     <ClCompile Include="..\Classes\demo\shader\scene_frost.cpp" />
+    <ClCompile Include="..\Classes\demo\shader\scene_laser.cpp" />
+    <ClCompile Include="..\Classes\demo\shader\scene_normal.cpp" />
+    <ClCompile Include="..\Classes\demo\shader\scene_ripple.cpp" />
     <ClCompile Include="..\Classes\demo\shader\scene_stream.cpp" />
     <ClCompile Include="..\Classes\demo\ui\scene_ui.cpp" />
     <ClCompile Include="..\Classes\math\vector.cpp" />
@@ -140,6 +143,9 @@
     <ClCompile Include="..\Classes\shader\bloom_sprite.cpp" />
     <ClCompile Include="..\Classes\shader\blur_sprite.cpp" />
     <ClCompile Include="..\Classes\shader\frost_sprite.cpp" />
+    <ClCompile Include="..\Classes\shader\laser_sprite.cpp" />
+    <ClCompile Include="..\Classes\shader\normal_sprite.cpp" />
+    <ClCompile Include="..\Classes\shader\ripple_sprite.cpp" />
     <ClCompile Include="..\Classes\shader\stream_sprite.cpp" />
     <ClCompile Include="..\Classes\ui\CCCursorTextField.cpp" />
     <ClCompile Include="..\Classes\ui\CCScale9Sprite.cpp" />
@@ -162,6 +168,9 @@
     <ClInclude Include="..\Classes\demo\shader\scene_bloom.h" />
     <ClInclude Include="..\Classes\demo\shader\scene_blur.h" />
     <ClInclude Include="..\Classes\demo\shader\scene_frost.h" />
+    <ClInclude Include="..\Classes\demo\shader\scene_laser.h" />
+    <ClInclude Include="..\Classes\demo\shader\scene_normal.h" />
+    <ClInclude Include="..\Classes\demo\shader\scene_ripple.h" />
     <ClInclude Include="..\Classes\demo\shader\scene_stream.h" />
     <ClInclude Include="..\Classes\demo\ui\scene_ui.h" />
     <ClInclude Include="..\Classes\math\math.h" />
@@ -170,6 +179,9 @@
     <ClInclude Include="..\Classes\shader\bloom_sprite.h" />
     <ClInclude Include="..\Classes\shader\blur_sprite.h" />
     <ClInclude Include="..\Classes\shader\frost_sprite.h" />
+    <ClInclude Include="..\Classes\shader\laser_sprite.h" />
+    <ClInclude Include="..\Classes\shader\normal_sprite.h" />
+    <ClInclude Include="..\Classes\shader\ripple_sprite.h" />
     <ClInclude Include="..\Classes\shader\stream_sprite.h" />
     <ClInclude Include="..\Classes\ui\CCCursorTextField.h" />
     <ClInclude Include="..\Classes\ui\CCScale9Sprite.h" />
