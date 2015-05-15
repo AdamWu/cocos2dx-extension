@@ -15,7 +15,6 @@ public:
     
     // implement the "static node()" method manually
     CREATE_FUNC(SceneUI);
-
 };
 
 #endif // __SCENE_BLIND_H__

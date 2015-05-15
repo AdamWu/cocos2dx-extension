@@ -7,6 +7,9 @@
 #include "scene_blur.h"
 #include "scene_frost.h"
 #include "scene_bloom.h"
+#include "scene_normal.h"
+#include "scene_laser.h"
+#include "scene_ripple.h"
 #include "demo/demo.h"
 
 using namespace std;
@@ -20,6 +23,9 @@ enum
 	TEST_BLUR,
 	TEST_FROST,
 	TEST_BLOOM,
+	TEST_NORMAL,
+	TEST_LASER,
+	TEST_RIPPLE,
 
 	// last one
 	TESTS_COUNT,
@@ -31,6 +37,9 @@ const std::string g_aTestNames[TESTS_COUNT] = {
 	"Blur",
 	"Frost",
 	"Bloom",
+	"Normal",
+	"Laser",
+	"Ripple",
 };
 
 static CCPoint s_tCurPos = CCPointZero;
@@ -128,6 +137,12 @@ void Demo_shader::menuCallback(CCObject * pSender)
 		pScene = SceneFrost::scene(); break;
 	case TEST_BLOOM:
 		pScene = SceneBloom::scene(); break;
+	case TEST_NORMAL:
+		pScene = SceneNormal::scene(); break;
+	case TEST_LASER:
+		pScene = SceneLaser::scene(); break;
+	case TEST_RIPPLE:
+		pScene = SceneRipple::scene(); break;
 	default:
 		break;
 	}
