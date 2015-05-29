@@ -39,7 +39,7 @@ void main()
     
     vec2 texCoord_noise2=texCoord_noise;
     texCoord_noise2*=u_noiseScale;
-    texCoord_noise2+=vec2(0.0, u_time*0.2);
+    texCoord_noise2+=vec2(0.0, u_time*0.15);
     
     vec4 noiseTexColor=texture2D(u_noiseTex, texCoord_noise1);
     vec4 noiseTexColor2=texture2D(u_noiseTex2, texCoord_noise2);
