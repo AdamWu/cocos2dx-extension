@@ -128,6 +128,12 @@
     <ClCompile Include="..\Classes\demo\shader\scene_ripple.cpp">
       <Filter>Classes\demo\shader</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\shader\hue_sprite.cpp">
+      <Filter>Classes\shader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\demo\shader\scene_hue.cpp">
+      <Filter>Classes\demo\shader</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\AppDelegate.h">
@@ -233,6 +239,12 @@
       <Filter>Classes\shader</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\demo\shader\scene_ripple.h">
+      <Filter>Classes\demo\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\shader\hue_sprite.h">
+      <Filter>Classes\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\demo\shader\scene_hue.h">
       <Filter>Classes\demo\shader</Filter>
     </ClInclude>
   </ItemGroup>
