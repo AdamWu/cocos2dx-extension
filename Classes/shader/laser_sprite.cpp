@@ -63,12 +63,12 @@ bool LaserSprite::initWithFile(const char* filename)
 		m_texMask1->setTexParameters(&texParams);
 	}
 	//m_texMask2 = CCTextureCache::sharedTextureCache()->addImage("laser/mask2.png");
-	m_texNoise1 = CCTextureCache::sharedTextureCache()->addImage("cloud/clouds7.png");
+	m_texNoise1 = CCTextureCache::sharedTextureCache()->addImage("cloud/clouds2.png");
 	{
 		ccTexParams texParams= {GL_LINEAR, GL_LINEAR, GL_REPEAT, GL_REPEAT};
 		m_texNoise1->setTexParameters(&texParams);
 	}
-	m_texNoise2 = CCTextureCache::sharedTextureCache()->addImage("cloud/clouds2.png");
+	m_texNoise2 = CCTextureCache::sharedTextureCache()->addImage("cloud/clouds1.png");
 	{
 		ccTexParams texParams= {GL_LINEAR, GL_LINEAR, GL_REPEAT, GL_REPEAT};
 		m_texNoise2->setTexParameters(&texParams);

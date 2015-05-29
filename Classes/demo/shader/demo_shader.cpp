@@ -10,6 +10,7 @@
 #include "scene_normal.h"
 #include "scene_laser.h"
 #include "scene_ripple.h"
+#include "scene_hue.h"
 #include "demo/demo.h"
 
 using namespace std;
@@ -26,6 +27,7 @@ enum
 	TEST_NORMAL,
 	TEST_LASER,
 	TEST_RIPPLE,
+	TEST_HUE,
 
 	// last one
 	TESTS_COUNT,
@@ -40,6 +42,7 @@ const std::string g_aTestNames[TESTS_COUNT] = {
 	"Normal",
 	"Laser",
 	"Ripple",
+	"Hue",
 };
 
 static CCPoint s_tCurPos = CCPointZero;
@@ -143,6 +146,8 @@ void Demo_shader::menuCallback(CCObject * pSender)
 		pScene = SceneLaser::scene(); break;
 	case TEST_RIPPLE:
 		pScene = SceneRipple::scene(); break;
+	case TEST_HUE:
+		pScene = SceneHue::scene(); break;
 	default:
 		break;
 	}
