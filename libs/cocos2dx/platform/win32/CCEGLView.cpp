@@ -448,11 +448,7 @@ LRESULT CCEGLView::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
             break;
         }
         break;
-	case WM_KEYDOWN:
-		// keyboard msg
-		CCKeyboardDispatcher::sharedDispatcher()->dispatchKeyboardMSG(message, wParam);
-		CCLOG("WM_KEYDOWN%d", wParam);
-
+    case WM_KEYDOWN:
         if (wParam == VK_F1 || wParam == VK_F2)
         {
             CCDirector* pDirector = CCDirector::sharedDirector();
@@ -469,20 +465,14 @@ LRESULT CCEGLView::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
             (*m_lpfnAccelerometerKeyHook)( message,wParam,lParam );
         }
         break;
-	case WM_KEYUP:
-		// keyboard msg
-		CCKeyboardDispatcher::sharedDispatcher()->dispatchKeyboardMSG(message, wParam);
-
+    case WM_KEYUP:
         if ( m_lpfnAccelerometerKeyHook!=NULL )
         {
             (*m_lpfnAccelerometerKeyHook)( message,wParam,lParam );
         }
         break;
     case WM_CHAR:
-		{
-			// keyboard msg
-			CCKeyboardDispatcher::sharedDispatcher()->dispatchKeyboardMSG(message, wParam);
-
+        {
             if (wParam < 0x20)
             {
                 if (VK_BACK == wParam)

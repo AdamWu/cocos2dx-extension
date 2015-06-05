@@ -238,9 +238,6 @@ public:
     /** execute a accelerometer event */
     virtual int executeAccelerometerEvent(CCLayer* pLayer, CCAcceleration* pAccelerationValue) = 0;
 
-	/** execute a keyboard event */
-	virtual int executeLayerKeyboardEvent(CCLayer* pLayer, int eventType, unsigned int key) = 0;
-
     /** function for common event */
     virtual int executeEvent(int nHandler, const char* pEventName, CCObject* pEventSource = NULL, const char* pEventSourceClassName = NULL) = 0;
     
@@ -251,6 +248,16 @@ public:
      * @return true if the assert was handled by the script engine, false otherwise.
      */
     virtual bool handleAssert(const char *msg) = 0;
+    
+    /**
+     *
+     */
+    enum ConfigType
+    {
+        NONE,
+        COCOSTUDIO,
+    };
+    virtual bool parseConfig(ConfigType type, const std::string& str) = 0;
 };
 
 /**

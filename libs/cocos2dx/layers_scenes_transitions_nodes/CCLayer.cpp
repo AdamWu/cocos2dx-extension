@@ -46,11 +46,9 @@ CCLayer::CCLayer()
 : m_bTouchEnabled(false)
 , m_bAccelerometerEnabled(false)
 , m_bKeypadEnabled(false)
-, m_bKeyboardEnabled(false)
 , m_pScriptTouchHandlerEntry(NULL)
 , m_pScriptKeypadHandlerEntry(NULL)
 , m_pScriptAccelerateHandlerEntry(NULL)
-, m_pScriptKeyboardHandlerEntry(NULL)
 , m_nTouchPriority(0)
 , m_eTouchMode(kCCTouchesAllAtOnce)
 {
@@ -330,75 +328,6 @@ void CCLayer::keyMenuClicked(void)
     }
 }
 
-/// isKeyboardEnabled getter
-bool CCLayer::isKeyboardEnabled()
-{
-	return m_bKeyboardEnabled;
-}
-
-/// isKeyboardEnabled setter
-void CCLayer::setKeyboardEnabled(bool enabled)
-{
-	if (enabled != m_bKeyboardEnabled)
-	{
-		m_bKeyboardEnabled = enabled;
-
-		if (m_bRunning)
-		{
-			if (enabled)
-			{
-				CCKeyboardDispatcher::sharedDispatcher()->addDelegate(this);
-			}
-			else
-			{
-				CCKeyboardDispatcher::sharedDispatcher()->removeDelegate(this);
-			}
-		}
-	}
-}
-
-void CCLayer::registerScriptKeyboardHandler(int nHandler)
-{
-	unregisterScriptKeypadHandler();
-	m_pScriptKeyboardHandlerEntry = CCScriptHandlerEntry::create(nHandler);
-	m_pScriptKeyboardHandlerEntry->retain();
-}
-
-void CCLayer::unregisterScriptKeyboardHandler(void)
-{
-	CC_SAFE_RELEASE_NULL(m_pScriptKeyboardHandlerEntry);
-}
-
-
-// The key down
-void CCLayer::ccKeyboardBegin(unsigned int INparam) 
-{
-	if (m_pScriptKeyboardHandlerEntry)
-	{
-		CCScriptEngineManager::sharedManager()->getScriptEngine()->executeLayerKeyboardEvent(this, kTypeKeyboardBegin, INparam);
-	}
-	//CCLOG("begin:%d, %p", INparam, this);
-}
-
-// The key up. only available on win32
-void CCLayer::ccKeyboardEnd(unsigned int INparam) 
-{
-	if (m_pScriptKeyboardHandlerEntry)
-	{
-		CCScriptEngineManager::sharedManager()->getScriptEngine()->executeLayerKeyboardEvent(this, kTypeKeyboardEnd, INparam);
-	}
-	//CCLOG("end:%d, %p", INparam, this);
-}
-
-// The key clicked. only available on win32
-void CCLayer::ccKeyboardClicked(unsigned int INparam) 
-{
-	if (m_pScriptKeyboardHandlerEntry)
-	{
-		CCScriptEngineManager::sharedManager()->getScriptEngine()->executeLayerKeyboardEvent(this, kTypeKeyboardClick, INparam);
-	}
-}
-
 /// Callbacks
 void CCLayer::onEnter()
 {
@@ -424,12 +353,6 @@ void CCLayer::onEnter()
     {
         pDirector->getKeypadDispatcher()->addDelegate(this);
     }
-
-	// add this layer to concern the keyboard msg
-	if (m_bKeyboardEnabled)
-	{
-		CCKeyboardDispatcher::sharedDispatcher()->addDelegate(this);
-	}
 }
 
 void CCLayer::onExit()
@@ -453,12 +376,6 @@ void CCLayer::onExit()
     {
         pDirector->getKeypadDispatcher()->removeDelegate(this);
     }
-
-	// remove this layer from the delegates who concern the keyboard msg
-	if (m_bKeyboardEnabled)
-	{
-		CCKeyboardDispatcher::sharedDispatcher()->removeDelegate(this);
-	}
 
     CCNode::onExit();
 }

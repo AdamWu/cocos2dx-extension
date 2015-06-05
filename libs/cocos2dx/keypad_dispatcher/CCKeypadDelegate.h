@@ -74,46 +74,6 @@ protected:
     CCKeypadDelegate* m_pDelegate;
 };
 
-
-// keyboard
-class CC_DLL CCKeyboardDelegate
-{
-public:
-	// The key down
-	virtual void ccKeyboardBegin(unsigned int INparam) {}
-
-	// The key up. only available on win32
-	virtual void ccKeyboardEnd(unsigned int INparam) {}
-
-	// The key clicked. only available on win32
-	virtual void ccKeyboardClicked(unsigned int INparam) {}
-};
-
-/**
-@brief
-CCKeyboardHandler
-Object than contains the CCKeyboardDelegate.
-*/
-class CC_DLL CCKeyboardHandler : public CCObject
-{
-public:
-	virtual ~CCKeyboardHandler(void);
-
-	/** delegate */
-	CCKeyboardDelegate* getDelegate();
-	void setDelegate(CCKeyboardDelegate *pDelegate);
-
-	/** initializes a CCKeyboardHandler with a delegate */
-	virtual bool initWithDelegate(CCKeyboardDelegate *pDelegate);
-
-public:
-	/** allocates a CCKeypadHandler with a delegate */
-	static CCKeyboardHandler* handlerWithDelegate(CCKeyboardDelegate *pDelegate);
-
-protected:
-	CCKeyboardDelegate* m_pDelegate;
-};
-
 // end of input group
 /// @} 
 

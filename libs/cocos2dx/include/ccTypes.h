@@ -319,12 +319,6 @@ typedef struct _ccBlendFunc
 
 static const ccBlendFunc kCCBlendFuncDisable = {GL_ONE, GL_ZERO};
 
-static inline ccBlendFunc blendfunc(const GLenum src, const GLenum dst)
-{
-	ccBlendFunc f = {src , dst};
-	return f;
-}
-
 // XXX: If any of these enums are edited and/or reordered, update CCTexture2D.m
 //! Vertical text alignment type
 typedef enum

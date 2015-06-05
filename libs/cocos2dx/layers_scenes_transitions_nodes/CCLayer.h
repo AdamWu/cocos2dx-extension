@@ -60,7 +60,7 @@ All features from CCNode are valid, plus the following new features:
 - It can receive iPhone Touches
 - It can receive Accelerometer input
 */
-class CC_DLL CCLayer : public CCNode, public CCTouchDelegate, public CCAccelerometerDelegate, public CCKeypadDelegate, public CCKeyboardDelegate
+class CC_DLL CCLayer : public CCNode, public CCTouchDelegate, public CCAccelerometerDelegate, public CCKeypadDelegate
 {
 public:
     /**
@@ -158,23 +158,6 @@ public:
     virtual bool isKeypadEnabled();
     virtual void setKeypadEnabled(bool value);
 
-	// The key down
-	virtual void ccKeyboardBegin(unsigned int INparam);
-
-	// The key up. only available on win32
-	virtual void ccKeyboardEnd(unsigned int INparam);
-
-	// The key clicked. only available on win32
-	virtual void ccKeyboardClicked(unsigned int INparam);
-
-	virtual bool isKeyboardEnabled();
-	virtual void setKeyboardEnabled(bool value);
-	/** Register keyboard events handler */
-	void registerScriptKeyboardHandler(int nHandler);
-	/** Unregister keyboard events handler */
-	void unregisterScriptKeyboardHandler(void);
-
-
     /** Register keypad events handler */
     void registerScriptKeypadHandler(int nHandler);
     /** Unregister keypad events handler */
@@ -185,20 +168,17 @@ public:
     
     inline CCTouchScriptHandlerEntry* getScriptTouchHandlerEntry() { return m_pScriptTouchHandlerEntry; };
     inline CCScriptHandlerEntry* getScriptKeypadHandlerEntry() { return m_pScriptKeypadHandlerEntry; };
-	inline CCScriptHandlerEntry* getScriptAccelerateHandlerEntry() { return m_pScriptAccelerateHandlerEntry; };
-	inline CCScriptHandlerEntry* getScriptKeyboardHandlerEntry() { return m_pScriptKeyboardHandlerEntry; };
+    inline CCScriptHandlerEntry* getScriptAccelerateHandlerEntry() { return m_pScriptAccelerateHandlerEntry; };
 protected:   
     bool m_bTouchEnabled;
     bool m_bAccelerometerEnabled;
     bool m_bKeypadEnabled;
-	bool m_bKeyboardEnabled;
     
 private:
     // Script touch events handler
     CCTouchScriptHandlerEntry* m_pScriptTouchHandlerEntry;
     CCScriptHandlerEntry* m_pScriptKeypadHandlerEntry;
-	CCScriptHandlerEntry* m_pScriptAccelerateHandlerEntry;
-	CCScriptHandlerEntry* m_pScriptKeyboardHandlerEntry;
+    CCScriptHandlerEntry* m_pScriptAccelerateHandlerEntry;
     
     int m_nTouchPriority;
     ccTouchesMode m_eTouchMode;
@@ -207,7 +187,7 @@ private:
     int  excuteScriptTouchHandler(int nEventType, CCSet *pTouches);
 };
 
-#ifdef __apple__
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS) || (CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
 #pragma mark -
 #pragma mark CCLayerRGBA
 #endif
