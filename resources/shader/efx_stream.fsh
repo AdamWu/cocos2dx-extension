@@ -12,6 +12,8 @@ uniform vec3 color;
 varying vec4 v_fragmentColor;                
 varying vec2 v_texCoord;
 
+const float SQRT_2 = 1.414f;
+
 void main()                                    
 {                                            
 	vec4 texColor = texture2D(u_texture, v_texCoord);
@@ -21,16 +23,15 @@ void main()
 	// ____|0___ 1___2____x
 	//     |	|
 	// 	   |____|*
-    float distance = abs(v_texCoord[0]+v_texCoord[1]-offset)/1.414; 
+    float distance = abs(v_texCoord[0]+v_texCoord[1]-offset)/SQRT_2; 
 	// linear gradient 
 	// (1/width)x + y = 1
-	distance = 1.0-(1.0/width)*distance;
-	distance = max(distance, 0.0);
-    vec4 sample = vec4(0.0,0.0,0.0,0.0);
-	sample[0] = color[0] * distance;
-	sample[1] = color[1] * distance;
-	sample[2] = color[2] * distance;
-	sample[3] = distance;
+	distance = 1.0f-(1.0f/width)*distance;
+	distance = max(distance, 0.0f);
+	
+    vec4 sample = vec4(0.0f,0.0f,0.0f,0.0f);
+	sample.rgb = color * distance;
+	sample.a = distance;
 	
 	// blend additive 
 	float alpha = sample[3]*texColor[3];

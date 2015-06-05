@@ -1,16 +1,18 @@
 #ifdef GL_ES
 precision mediump float;
 #endif
-varying vec2 v_texCoord;
-varying vec4 v_fragmentColor;
 
 uniform sampler2D u_texture;
 uniform sampler2D tex_noise;
-uniform vec2 pix_size;
 
+uniform vec2 pix_size;
 const float PixelX = 0.5;
 const float PixelY = 0.5;
 const float Freq = 0.115;
+
+varying vec2 v_texCoord;
+varying vec4 v_fragmentColor;
+
 
 vec4 spline(float x, vec4 c1, vec4 c2, vec4 c3, vec4 c4, vec4 c5, vec4 c6, vec4 c7, vec4 c8, vec4 c9)
 {
