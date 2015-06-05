@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="isometric" renderorder="left-up" width="20" height="20" tilewidth="64" tileheight="32" backgroundcolor="#ff0000" nextobjectid="1">
+ <tileset firstgid="1" name="test_tiled" tilewidth="64" tileheight="64" spacing="2" margin="2">
+  <image source="test_tiled.png" width="512" height="1024"/>
+ </tileset>
+ <tileset firstgid="106" name="collision" tilewidth="64" tileheight="64" spacing="2" margin="2">
+  <image source="collision.png" width="128" height="256"/>
+ </tileset>
+ <layer name="background" width="20" height="20">
+  <data encoding="base64" compression="zlib">
+   eJydlEtOw0AQRIfAIltvYrFPiEwGOfgzEUhmy86X4P53oEeqkopmnF+kki2n86aqu51dCCGaTjdq6bO7k5eVTKsreemMtObLMTPvpcDk72pTb+pMg+noambwVjfwNpJD/WVvn6YnyPPIPJhaXAeogTf1R2/krcEbkCki1x73yqC/I670tsR7R91epPk0b4S3B8jz8vdvOLspMLs7eJk1wovnDajr0df8bDJ9m34KPNZ20jdK+8d9iZgVfT4WeDpD7ssofdC8+eznC7xa6qkI5qvL2whvkswlnvauRy7Og3mTZNGdvsRjD7K24q+VPsxuHjXEs/0sEjxuRdznj/D3fVOe7x01OhZ5S/tCHrMkycl3pgn/fbc4aymv/i9Vcs+ZcN/4jOef41HVlWJu5f0CWvY9KQ==
+  </data>
+ </layer>
+ <layer name="collision" width="20" height="20">
+  <data encoding="base64" compression="zlib">
+   eJzVk1EKACAIQzuv9z9AX/2MKZsJ0SCCqDfFFWtW8QGvYoZw5zXPEfpnfKc+3BnT5eGZUnOX5zBjaTOcmi/jVW/UfLH+FR7rv5NnJS/OPFzfG56agYyHf8YRerOV3e/yFJ+jDR1lL58=
+  </data>
+ </layer>
+</map>
