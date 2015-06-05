@@ -1,5 +1,4 @@
 #include <string>
-#include "demo/demo.h"
 #include "ui/VEScrollView.h"
 #include "config.h"
 #include "game_controller.h"
@@ -74,8 +73,6 @@ void GameUILayer::menuCallback(CCNode* pSender)
 	switch (pSender->getTag()){
 	case TAG_BACK:
 		{
-			CCScene *pScene = Demo::scene();
-			CCDirector::sharedDirector()->replaceScene(pScene);
 		}
 		break;
 	case TAG_ADD:

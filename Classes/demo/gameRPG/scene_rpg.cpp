@@ -1,6 +1,5 @@
 #include <string>
 #include "scene_rpg.h"
-#include "demo/demo.h"
 #include "ui/VEScrollView.h"
 #include "ui/Utils.h"
 #include "config.h"

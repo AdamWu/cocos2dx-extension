@@ -27,7 +27,11 @@ THE SOFTWARE.
 #include <vector>
 #include <string>
 
-#include "demo/demo.h"
+#include "CCLuaEngine.h"
+#include "LuaCocos2d.h"
+#include "LuaCocoStudio.h"
+#include "cjson/lua_cjson.h"
+#include "lua_utils.h"
 
 USING_NS_CC;
 using namespace std;
@@ -58,11 +62,25 @@ bool AppDelegate::applicationDidFinishLaunching() {
     // set FPS. the default value is 1.0/60 if you don't call this
     pDirector->setAnimationInterval(1.0 / 60);
 
-    // create a scene. it's an autorelease object
-    CCScene *pScene = Demo::scene();
+	// register lua engine
+	CCLuaEngine* pEngine = CCLuaEngine::defaultEngine();
+	CCScriptEngineManager::sharedManager()->setScriptEngine(pEngine);
 
-    // run
-    pDirector->runWithScene(pScene);
+	CCLuaStack *pStack = pEngine->getLuaStack();
+	lua_State *tolua_s = pStack->getLuaState();
+	luaopen_cjson(tolua_s);
+	tolua_Cocos2d_open(tolua_s);
+	tolua_CocoStudio_open(tolua_s);
+	tolua_utils_open(tolua_s);
+
+
+	std::vector<std::string> searchPaths;
+	searchPaths.push_back("script");
+	CCFileUtils::sharedFileUtils()->setSearchPaths(searchPaths);
+
+
+	std::string path = CCFileUtils::sharedFileUtils()->fullPathForFilename("main.lua");
+	pEngine->executeScriptFile(path.c_str());
 
     return true;
 }

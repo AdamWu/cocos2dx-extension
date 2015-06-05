@@ -1,5 +1,4 @@
 #include <string>
-//#include "tinyxml2/tinyxml2.h"
 #include "config.h"
 #include "game_controller.h"
 #include "game_bg.h"

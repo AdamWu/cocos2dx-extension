@@ -23,7 +23,7 @@ typedef struct{
 }Building;
 
 
-class GameBgLayer : public cocos2d::CCLayer
+class GameBgLayer : public CCLayer
 {
 public:
     virtual bool init();  
