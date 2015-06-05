@@ -1,0 +1,16 @@
+/********************************************************************
+	laser efx
+*********************************************************************/
+
+class LaserSprite : public CCSprite
+{
+
+public:
+    LaserSprite();
+    ~LaserSprite();
+    
+    static LaserSprite * create(const char* filename);
+
+	bool initWithFile(const char* filename);
+
+};

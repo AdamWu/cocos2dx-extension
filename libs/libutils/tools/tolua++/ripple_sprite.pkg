@@ -1,0 +1,20 @@
+/********************************************************************
+	water ripple efx
+*********************************************************************/
+
+class RippleSprite : public CCSprite
+{
+
+public:
+    RippleSprite();
+    ~RippleSprite();
+    
+    static RippleSprite * create(const char* filename);
+
+	bool initWithFile(const char* filename);
+
+	void setTile(float tile) {m_factor_tile=tile;};
+	void setNoiseFactor(float factor) {m_factor_noise=factor;};
+	void setSpeed(float speed) {m_factor_speed=speed;};
+
+};

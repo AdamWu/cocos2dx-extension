@@ -1,0 +1,8 @@
+class GraySprite : public CCSprite
+{    
+	static GraySprite * create(const char* filename);
+	static GraySprite * createWithTexture(CCTexture2D *pTexture);
+
+	bool initWithFile(const char* filename);
+	bool initWithTexture(CCTexture2D *pTexture, const CCRect& rect);
+};

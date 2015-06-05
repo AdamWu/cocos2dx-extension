@@ -1,0 +1,17 @@
+/********************************************************************
+	bloom efx
+	bright & blur
+*********************************************************************/
+
+class BloomSprite : public CCSprite
+{
+
+public:
+    BloomSprite();
+    ~BloomSprite();
+    
+    static BloomSprite * create(const char* filename);
+
+	bool initWithFile(const char* filename);
+    
+};

@@ -1,0 +1,19 @@
+/********************************************************************
+	hue efx
+*********************************************************************/
+
+class HueSprite : public CCSprite
+{
+
+public:
+    HueSprite();
+    ~HueSprite();
+    
+    static HueSprite * create(const char* filename);
+
+	bool initWithFile(const char* filename);
+
+	void setHue(float hue);
+	float getHue() { return m_hue;};
+
+};

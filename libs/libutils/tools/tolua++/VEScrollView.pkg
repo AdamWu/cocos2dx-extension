@@ -1,0 +1,63 @@
+enum ScrollViewType
+{
+	SCROLLVIEW_NONE = 0,
+	SCROLLVIEW_HORIZONTAL,
+	SCROLLVIEW_VERTICAL,
+};
+
+class VEScrollView : public CCLayer
+{
+public:
+	static VEScrollView* create();
+
+public:
+	virtual bool init();
+
+	// set scroll-view type
+	void setType(ScrollViewType type) { m_eType=type;};
+
+	// get scroll-view type
+	ScrollViewType getType() const {return m_eType;};
+
+	// set view port size
+	void setViewSize(CCSize size);
+	
+	// get view port size
+	CCSize getViewSize() const {return m_viewSize;};
+
+    // default implements are used to call script callback if exist
+    virtual bool ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent);
+    virtual void ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent);
+    virtual void ccTouchEnded(CCTouch *pTouch, CCEvent *pEvent);
+    
+    // default implements are used to call script callback if exist
+	virtual void ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent);
+	virtual void ccTouchesMoved(CCSet *pTouches, CCEvent *pEvent);
+	virtual void ccTouchesEnded(CCSet *pTouches, CCEvent *pEvent);
+
+	virtual void visit();
+
+	virtual CCRect boundingBox();
+    
+    void setTouchEnabled(bool val);
+    bool getTouchEnabled() const { return m_bTouchEnabled; }
+    
+	// set scroll view offset
+    CCPoint getContentOffset() const;
+    void setContentOffset(CCPoint offset);
+
+	// add scroll cell
+	void addCell(CCNode* cell);
+	void removeCell(CCNode* cell);
+	void removeAllCells();
+	CCArray* getAllCells();
+
+	// callback
+	void addTouchHandler(CCObject *listener, scroll_touch callback)
+	{
+		m_touchListener=listener;
+		m_touchHandler=callback;
+	};
+
+	CCNode *touchCheck(CCPoint touchPoint);
+};

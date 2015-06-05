@@ -1,0 +1,7 @@
+class FileSystem
+{
+	static FileSystem* getInstance();
+
+	const char* getFileData(const char *fullPath);
+};
+

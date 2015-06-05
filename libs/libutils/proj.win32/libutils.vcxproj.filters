@@ -1,0 +1,176 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <None Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="crypto">
+      <UniqueIdentifier>{927b1984-e097-42ea-bfbe-ea05e3e44657}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cjson">
+      <UniqueIdentifier>{5168064d-24aa-4620-953b-626cbf9f7354}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="shader">
+      <UniqueIdentifier>{4f45afe5-22fc-45eb-b5f2-126614f8e613}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ui">
+      <UniqueIdentifier>{1c513f5d-ba60-48dd-96e0-93031d5e2540}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="io">
+      <UniqueIdentifier>{39c19ec4-c96e-4124-bd98-df6a4baa35e2}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\crypto\aes\aes.c">
+      <Filter>crypto</Filter>
+    </ClCompile>
+    <ClCompile Include="..\crypto\md5\md5.c">
+      <Filter>crypto</Filter>
+    </ClCompile>
+    <ClCompile Include="..\crypto\xxtea\xxtea.c">
+      <Filter>crypto</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cjson\dtoa.c">
+      <Filter>cjson</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cjson\g_fmt.c">
+      <Filter>cjson</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cjson\lua_cjson.c">
+      <Filter>cjson</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cjson\strbuf.c">
+      <Filter>cjson</Filter>
+    </ClCompile>
+    <ClCompile Include="..\shader\blind_sprite.cpp">
+      <Filter>shader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\shader\bloom_sprite.cpp">
+      <Filter>shader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\shader\blur_sprite.cpp">
+      <Filter>shader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\shader\color_sprite.cpp">
+      <Filter>shader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\shader\gray_sprite.cpp">
+      <Filter>shader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\shader\shader_manager.cpp">
+      <Filter>shader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\shader\stream_sprite.cpp">
+      <Filter>shader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ui\CCCursorTextField.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ui\ContentLayer.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ui\PageScrollView.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ui\VEScrollView.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\lua_utils.cpp" />
+    <ClCompile Include="..\io\FileSystem.cpp">
+      <Filter>io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\shader\hue_sprite.cpp">
+      <Filter>shader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\shader\normal_sprite.cpp">
+      <Filter>shader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\shader\ripple_sprite.cpp">
+      <Filter>shader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\shader\frost_sprite.cpp">
+      <Filter>shader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\shader\laser_sprite.cpp">
+      <Filter>shader</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\crypto\aes\aes.h">
+      <Filter>crypto</Filter>
+    </ClInclude>
+    <ClInclude Include="..\crypto\md5\md5.h">
+      <Filter>crypto</Filter>
+    </ClInclude>
+    <ClInclude Include="..\crypto\xxtea\xxtea.h">
+      <Filter>crypto</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cjson\dtoa_config.h">
+      <Filter>cjson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cjson\fpconv.h">
+      <Filter>cjson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cjson\lua_cjson.h">
+      <Filter>cjson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cjson\strbuf.h">
+      <Filter>cjson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\shader\blind_sprite.h">
+      <Filter>shader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\shader\bloom_sprite.h">
+      <Filter>shader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\shader\blur_sprite.h">
+      <Filter>shader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\shader\color_sprite.h">
+      <Filter>shader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\shader\gray_sprite.h">
+      <Filter>shader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\shader\shader_manager.h">
+      <Filter>shader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\shader\stream_sprite.h">
+      <Filter>shader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ui\CCCursorTextField.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ui\ContentLayer.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ui\PageScrollView.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ui\Utils.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ui\VEScrollView.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\io\FileSystem.h">
+      <Filter>io</Filter>
+    </ClInclude>
+    <ClInclude Include="..\lua_utils.h" />
+    <ClInclude Include="..\shader\hue_sprite.h">
+      <Filter>shader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\shader\normal_sprite.h">
+      <Filter>shader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\shader\ripple_sprite.h">
+      <Filter>shader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\shader\frost_sprite.h">
+      <Filter>shader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\shader\laser_sprite.h">
+      <Filter>shader</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

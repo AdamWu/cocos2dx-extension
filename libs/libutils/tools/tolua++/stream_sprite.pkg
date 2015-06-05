@@ -1,0 +1,16 @@
+/********************************************************************
+	stream efx
+*********************************************************************/
+
+class StreamSprite : public CCSprite
+{
+
+public:
+    StreamSprite();
+    ~StreamSprite();
+    
+    static StreamSprite * create(const char* filename);
+
+	bool initWithFile(const char* filename);
+    
+};

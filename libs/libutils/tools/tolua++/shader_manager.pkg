@@ -1,0 +1,4 @@
+class ShaderManager :public CCObject
+{
+    static ShaderManager* getInstance();
+};

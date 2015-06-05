@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{A2FF7B7C-FC3E-47BD-8DCF-4862C06A7C2A}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>libutils</RootNamespace>
+    <ProjectName>libutils</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>$(SolutionDir)$(Configuration).win32\</OutDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\cocos2dx;$(ProjectDir)..\..\cocos2dx\include;$(ProjectDir)..\..\cocos2dx\platform\win32;$(ProjectDir)..\..\cocos2dx\platform\third_party\win32\OGLES;$(ProjectDir)..\..\cocos2dx\kazmath\include;$(ProjectDir)..\..\scripting\lua\lua;$(ProjectDir)..\..\scripting\lua\cocos2dx_support;$(ProjectDir)..\..\scripting\lua\tolua;$(ProjectDir)..\..\extensions;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <None Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\cjson\dtoa.c" />
+    <ClCompile Include="..\cjson\g_fmt.c" />
+    <ClCompile Include="..\cjson\lua_cjson.c" />
+    <ClCompile Include="..\cjson\strbuf.c" />
+    <ClCompile Include="..\crypto\aes\aes.c" />
+    <ClCompile Include="..\crypto\md5\md5.c" />
+    <ClCompile Include="..\crypto\xxtea\xxtea.c" />
+    <ClCompile Include="..\io\FileSystem.cpp" />
+    <ClCompile Include="..\lua_utils.cpp" />
+    <ClCompile Include="..\shader\blind_sprite.cpp" />
+    <ClCompile Include="..\shader\bloom_sprite.cpp" />
+    <ClCompile Include="..\shader\blur_sprite.cpp" />
+    <ClCompile Include="..\shader\color_sprite.cpp" />
+    <ClCompile Include="..\shader\frost_sprite.cpp" />
+    <ClCompile Include="..\shader\gray_sprite.cpp" />
+    <ClCompile Include="..\shader\hue_sprite.cpp" />
+    <ClCompile Include="..\shader\laser_sprite.cpp" />
+    <ClCompile Include="..\shader\normal_sprite.cpp" />
+    <ClCompile Include="..\shader\ripple_sprite.cpp" />
+    <ClCompile Include="..\shader\shader_manager.cpp" />
+    <ClCompile Include="..\shader\stream_sprite.cpp" />
+    <ClCompile Include="..\ui\CCCursorTextField.cpp" />
+    <ClCompile Include="..\ui\ContentLayer.cpp" />
+    <ClCompile Include="..\ui\PageScrollView.cpp" />
+    <ClCompile Include="..\ui\VEScrollView.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\cjson\dtoa_config.h" />
+    <ClInclude Include="..\cjson\fpconv.h" />
+    <ClInclude Include="..\cjson\lua_cjson.h" />
+    <ClInclude Include="..\cjson\strbuf.h" />
+    <ClInclude Include="..\crypto\aes\aes.h" />
+    <ClInclude Include="..\crypto\md5\md5.h" />
+    <ClInclude Include="..\crypto\xxtea\xxtea.h" />
+    <ClInclude Include="..\io\FileSystem.h" />
+    <ClInclude Include="..\lua_utils.h" />
+    <ClInclude Include="..\shader\blind_sprite.h" />
+    <ClInclude Include="..\shader\bloom_sprite.h" />
+    <ClInclude Include="..\shader\blur_sprite.h" />
+    <ClInclude Include="..\shader\color_sprite.h" />
+    <ClInclude Include="..\shader\frost_sprite.h" />
+    <ClInclude Include="..\shader\gray_sprite.h" />
+    <ClInclude Include="..\shader\hue_sprite.h" />
+    <ClInclude Include="..\shader\laser_sprite.h" />
+    <ClInclude Include="..\shader\normal_sprite.h" />
+    <ClInclude Include="..\shader\ripple_sprite.h" />
+    <ClInclude Include="..\shader\shader_manager.h" />
+    <ClInclude Include="..\shader\stream_sprite.h" />
+    <ClInclude Include="..\ui\CCCursorTextField.h" />
+    <ClInclude Include="..\ui\ContentLayer.h" />
+    <ClInclude Include="..\ui\PageScrollView.h" />
+    <ClInclude Include="..\ui\Utils.h" />
+    <ClInclude Include="..\ui\VEScrollView.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

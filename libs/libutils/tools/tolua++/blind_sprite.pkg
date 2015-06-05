@@ -1,0 +1,19 @@
+/********************************************************************
+	window blind (ads window)
+*********************************************************************/
+
+class BlindSprite : public CCSprite
+{
+
+public:
+    BlindSprite();
+    ~BlindSprite();
+    
+    static BlindSprite * create(CCArray *filelist);
+
+	bool initWithFile(CCArray *filelist);
+
+	void setSplitNum(int num) {m_lineWidth = 1.f/num;};
+	void setDuration(float duration);
+    
+};

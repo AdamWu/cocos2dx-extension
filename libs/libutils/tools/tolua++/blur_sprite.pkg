@@ -1,0 +1,18 @@
+/********************************************************************
+	blur efx
+*********************************************************************/
+
+class BlurSprite : public CCSprite
+{
+
+public:
+    BlurSprite();
+    ~BlurSprite();
+
+	static BlurSprite * create(const char* filename);
+	static BlurSprite * createWithTexture(CCTexture2D *pTexture);
+
+	bool initWithTexture(CCTexture2D *pTexture, const CCRect& rect);
+	bool initWithFile(const char* filename);
+    
+};
