@@ -14,7 +14,7 @@
     <ProjectGuid>{B8BF9E81-35FD-4582-BA1C-B85FA365BABB}</ProjectGuid>
     <RootNamespace>shaderwin32</RootNamespace>
     <Keyword>Win32Proj</Keyword>
-    <ProjectName>extension</ProjectName>
+    <ProjectName>test</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -67,7 +67,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\libs\cocos2dx;$(ProjectDir)..\libs\cocos2dx\include;$(ProjectDir)..\libs\cocos2dx\kazmath\include;$(ProjectDir)..\libs\cocos2dx\platform\win32;$(ProjectDir)..\libs\cocos2dx\platform\third_party\win32\OGLES;..\Classes;$(ProjectDir)..\libs\extension;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\libs\cocos2dx;$(ProjectDir)..\libs\cocos2dx\include;$(ProjectDir)..\libs\cocos2dx\kazmath\include;$(ProjectDir)..\libs\cocos2dx\platform\win32;$(ProjectDir)..\libs\cocos2dx\platform\third_party\win32\OGLES;..\Classes;$(ProjectDir)..\libs\extensions;$(ProjectDir)..\libs\libutils;$(ProjectDir)..\libs\scripting\lua;$(ProjectDir)..\libs\scripting\lua\lua;$(ProjectDir)..\libs\scripting\lua\tolua;$(ProjectDir)..\libs\scripting\lua\cocos2dx_support;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;COCOS2D_DEBUG=1;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -79,7 +79,7 @@
       <DisableSpecificWarnings>4267;4251;4244;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>opengl32.lib;glew32.lib;libcocos2d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;glew32.lib;libcocos2d.lib;libExtensions.lib;libBox2d.lib;libCocosDenshion.lib;liblua.lib;lua51.lib;libutils.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(ProjectName).exe</OutputFile>
       <AdditionalLibraryDirectories>$(OutDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -122,90 +122,41 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
-    <ClCompile Include="..\Classes\demo\demo.cpp" />
     <ClCompile Include="..\Classes\demo\gameRPG\config.cpp" />
     <ClCompile Include="..\Classes\demo\gameRPG\game_bg.cpp" />
     <ClCompile Include="..\Classes\demo\gameRPG\game_controller.cpp" />
     <ClCompile Include="..\Classes\demo\gameRPG\game_ui.cpp" />
     <ClCompile Include="..\Classes\demo\gameRPG\scene_rpg.cpp" />
-    <ClCompile Include="..\Classes\demo\shader\demo_shader.cpp" />
-    <ClCompile Include="..\Classes\demo\shader\scene_blind.cpp" />
-    <ClCompile Include="..\Classes\demo\shader\scene_bloom.cpp" />
-    <ClCompile Include="..\Classes\demo\shader\scene_blur.cpp" />
-    <ClCompile Include="..\Classes\demo\shader\scene_frost.cpp" />
-    <ClCompile Include="..\Classes\demo\shader\scene_hue.cpp" />
-    <ClCompile Include="..\Classes\demo\shader\scene_laser.cpp" />
-    <ClCompile Include="..\Classes\demo\shader\scene_normal.cpp" />
-    <ClCompile Include="..\Classes\demo\shader\scene_ripple.cpp" />
-    <ClCompile Include="..\Classes\demo\shader\scene_stream.cpp" />
-    <ClCompile Include="..\Classes\demo\ui\scene_ui.cpp" />
     <ClCompile Include="..\Classes\math\vector.cpp" />
-    <ClCompile Include="..\Classes\shader\blind_sprite.cpp" />
-    <ClCompile Include="..\Classes\shader\bloom_sprite.cpp" />
-    <ClCompile Include="..\Classes\shader\blur_sprite.cpp" />
-    <ClCompile Include="..\Classes\shader\frost_sprite.cpp" />
-    <ClCompile Include="..\Classes\shader\hue_sprite.cpp" />
-    <ClCompile Include="..\Classes\shader\laser_sprite.cpp" />
-    <ClCompile Include="..\Classes\shader\normal_sprite.cpp" />
-    <ClCompile Include="..\Classes\shader\ripple_sprite.cpp" />
-    <ClCompile Include="..\Classes\shader\stream_sprite.cpp" />
-    <ClCompile Include="..\Classes\ui\CCCursorTextField.cpp" />
-    <ClCompile Include="..\Classes\ui\CCScale9Sprite.cpp" />
-    <ClCompile Include="..\Classes\ui\ContentLayer.cpp" />
-    <ClCompile Include="..\Classes\ui\PageScrollView.cpp" />
-    <ClCompile Include="..\Classes\ui\VEScrollView.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\AppDelegate.h" />
-    <ClInclude Include="..\Classes\demo\demo.h" />
     <ClInclude Include="..\Classes\demo\gameRPG\config.h" />
     <ClInclude Include="..\Classes\demo\gameRPG\game_bg.h" />
     <ClInclude Include="..\Classes\demo\gameRPG\game_controller.h" />
     <ClInclude Include="..\Classes\demo\gameRPG\game_ui.h" />
     <ClInclude Include="..\Classes\demo\gameRPG\scene_rpg.h" />
     <ClInclude Include="..\Classes\demo\gameRPG\singleton.h" />
-    <ClInclude Include="..\Classes\demo\shader\demo_shader.h" />
-    <ClInclude Include="..\Classes\demo\shader\scene_blind.h" />
-    <ClInclude Include="..\Classes\demo\shader\scene_bloom.h" />
-    <ClInclude Include="..\Classes\demo\shader\scene_blur.h" />
-    <ClInclude Include="..\Classes\demo\shader\scene_frost.h" />
-    <ClInclude Include="..\Classes\demo\shader\scene_hue.h" />
-    <ClInclude Include="..\Classes\demo\shader\scene_laser.h" />
-    <ClInclude Include="..\Classes\demo\shader\scene_normal.h" />
-    <ClInclude Include="..\Classes\demo\shader\scene_ripple.h" />
-    <ClInclude Include="..\Classes\demo\shader\scene_stream.h" />
-    <ClInclude Include="..\Classes\demo\ui\scene_ui.h" />
     <ClInclude Include="..\Classes\math\math.h" />
     <ClInclude Include="..\Classes\math\vector.h" />
-    <ClInclude Include="..\Classes\shader\blind_sprite.h" />
-    <ClInclude Include="..\Classes\shader\bloom_sprite.h" />
-    <ClInclude Include="..\Classes\shader\blur_sprite.h" />
-    <ClInclude Include="..\Classes\shader\frost_sprite.h" />
-    <ClInclude Include="..\Classes\shader\hue_sprite.h" />
-    <ClInclude Include="..\Classes\shader\laser_sprite.h" />
-    <ClInclude Include="..\Classes\shader\normal_sprite.h" />
-    <ClInclude Include="..\Classes\shader\ripple_sprite.h" />
-    <ClInclude Include="..\Classes\shader\stream_sprite.h" />
-    <ClInclude Include="..\Classes\ui\CCCursorTextField.h" />
-    <ClInclude Include="..\Classes\ui\CCScale9Sprite.h" />
-    <ClInclude Include="..\Classes\ui\ContentLayer.h" />
-    <ClInclude Include="..\Classes\ui\PageScrollView.h" />
-    <ClInclude Include="..\Classes\ui\Utils.h" />
-    <ClInclude Include="..\Classes\ui\VEScrollView.h" />
     <ClInclude Include="main.h" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\cocos2dx\proj.win32\cocos2d.vcxproj">
+    <ProjectReference Include="..\libs\cocos2dx\proj.win32\cocos2d.vcxproj">
       <Project>{98a51ba8-fc3a-415b-ac8f-8c7bd464e93e}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\CocosDenshion\proj.win32\CocosDenshion.vcxproj">
+    <ProjectReference Include="..\libs\CocosDenshion\proj.win32\CocosDenshion.vcxproj">
       <Project>{f8edd7fa-9a51-4e80-baeb-860825d2eac6}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
-    <ProjectReference Include="..\libExtension\libExtension.vcxproj">
+    <ProjectReference Include="..\libs\extensions\proj.win32\libExtensions.vcxproj">
+      <Project>{21b2c324-891f-48ea-ad1a-5ae13de12e28}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\libs\libutils\proj.win32\libutils.vcxproj">
       <Project>{a2ff7b7c-fc3e-47bd-8dcf-4862c06a7c2a}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\libs\scripting\lua\proj.win32\liblua.vcxproj">
+      <Project>{ddc3e27f-004d-4dd4-9dd3-931a013d2159}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

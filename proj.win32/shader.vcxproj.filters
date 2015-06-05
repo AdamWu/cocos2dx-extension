@@ -12,23 +12,11 @@
     <Filter Include="Classes\demo">
       <UniqueIdentifier>{49e4e503-8f9d-4ca4-8400-e185b44130ea}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Classes\shader">
-      <UniqueIdentifier>{22e43659-fcdb-4315-b086-b3215029a41d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Classes\ui">
-      <UniqueIdentifier>{f5883f2b-dded-48cb-a0e6-61c92d8ba384}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Classes\demo\gameRPG">
       <UniqueIdentifier>{2a5a32f5-eb26-4d3a-bdf9-6210e617451a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Classes\demo\shader">
-      <UniqueIdentifier>{422a9a41-0f18-4adc-bdaf-eb956563f625}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Classes\demo\ui">
-      <UniqueIdentifier>{c73735a5-646f-4710-ba3d-68211ccb62d9}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Classes\math">
-      <UniqueIdentifier>{63d650a6-5491-478d-a1e7-7189ca10bda5}</UniqueIdentifier>
+      <UniqueIdentifier>{47593372-d8f3-44c6-a5b5-a968ed682013}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -38,65 +26,11 @@
     <ClCompile Include="main.cpp">
       <Filter>win32</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\shader\blind_sprite.cpp">
-      <Filter>Classes\shader</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\shader\bloom_sprite.cpp">
-      <Filter>Classes\shader</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\shader\blur_sprite.cpp">
-      <Filter>Classes\shader</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\shader\frost_sprite.cpp">
-      <Filter>Classes\shader</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\shader\stream_sprite.cpp">
-      <Filter>Classes\shader</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\ui\CCCursorTextField.cpp">
-      <Filter>Classes\ui</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\ui\ContentLayer.cpp">
-      <Filter>Classes\ui</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\ui\PageScrollView.cpp">
-      <Filter>Classes\ui</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\ui\CCScale9Sprite.cpp">
-      <Filter>Classes\ui</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\ui\VEScrollView.cpp">
-      <Filter>Classes\ui</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\demo\gameRPG\scene_rpg.cpp">
       <Filter>Classes\demo\gameRPG</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\demo\gameRPG\config.cpp">
       <Filter>Classes\demo\gameRPG</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\demo\shader\scene_blind.cpp">
-      <Filter>Classes\demo\shader</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\demo\shader\scene_bloom.cpp">
-      <Filter>Classes\demo\shader</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\demo\shader\scene_blur.cpp">
-      <Filter>Classes\demo\shader</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\demo\shader\scene_frost.cpp">
-      <Filter>Classes\demo\shader</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\demo\shader\scene_stream.cpp">
-      <Filter>Classes\demo\shader</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\demo\shader\demo_shader.cpp">
-      <Filter>Classes\demo\shader</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\demo\demo.cpp">
-      <Filter>Classes\demo</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\demo\ui\scene_ui.cpp">
-      <Filter>Classes\demo\ui</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\demo\gameRPG\game_ui.cpp">
       <Filter>Classes\demo\gameRPG</Filter>
@@ -110,30 +44,6 @@
     <ClCompile Include="..\Classes\math\vector.cpp">
       <Filter>Classes\math</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\shader\normal_sprite.cpp">
-      <Filter>Classes\shader</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\demo\shader\scene_normal.cpp">
-      <Filter>Classes\demo\shader</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\demo\shader\scene_laser.cpp">
-      <Filter>Classes\demo\shader</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\shader\laser_sprite.cpp">
-      <Filter>Classes\shader</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\shader\ripple_sprite.cpp">
-      <Filter>Classes\shader</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\demo\shader\scene_ripple.cpp">
-      <Filter>Classes\demo\shader</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\shader\hue_sprite.cpp">
-      <Filter>Classes\shader</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\demo\shader\scene_hue.cpp">
-      <Filter>Classes\demo\shader</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\AppDelegate.h">
@@ -141,39 +51,6 @@
     </ClInclude>
     <ClInclude Include="main.h">
       <Filter>win32</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\shader\blind_sprite.h">
-      <Filter>Classes\shader</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\shader\bloom_sprite.h">
-      <Filter>Classes\shader</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\shader\blur_sprite.h">
-      <Filter>Classes\shader</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\shader\frost_sprite.h">
-      <Filter>Classes\shader</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\shader\stream_sprite.h">
-      <Filter>Classes\shader</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\ui\CCCursorTextField.h">
-      <Filter>Classes\ui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\ui\ContentLayer.h">
-      <Filter>Classes\ui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\ui\PageScrollView.h">
-      <Filter>Classes\ui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\ui\CCScale9Sprite.h">
-      <Filter>Classes\ui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\ui\VEScrollView.h">
-      <Filter>Classes\ui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\ui\Utils.h">
-      <Filter>Classes\ui</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\demo\gameRPG\config.h">
       <Filter>Classes\demo\gameRPG</Filter>
@@ -183,30 +60,6 @@
     </ClInclude>
     <ClInclude Include="..\Classes\demo\gameRPG\scene_rpg.h">
       <Filter>Classes\demo\gameRPG</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\demo\shader\scene_blind.h">
-      <Filter>Classes\demo\shader</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\demo\shader\scene_bloom.h">
-      <Filter>Classes\demo\shader</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\demo\shader\scene_blur.h">
-      <Filter>Classes\demo\shader</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\demo\shader\scene_frost.h">
-      <Filter>Classes\demo\shader</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\demo\shader\scene_stream.h">
-      <Filter>Classes\demo\shader</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\demo\shader\demo_shader.h">
-      <Filter>Classes\demo\shader</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\demo\demo.h">
-      <Filter>Classes\demo</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\demo\ui\scene_ui.h">
-      <Filter>Classes\demo\ui</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\demo\gameRPG\game_ui.h">
       <Filter>Classes\demo\gameRPG</Filter>
@@ -222,30 +75,6 @@
     </ClInclude>
     <ClInclude Include="..\Classes\math\vector.h">
       <Filter>Classes\math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\shader\normal_sprite.h">
-      <Filter>Classes\shader</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\demo\shader\scene_normal.h">
-      <Filter>Classes\demo\shader</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\demo\shader\scene_laser.h">
-      <Filter>Classes\demo\shader</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\shader\laser_sprite.h">
-      <Filter>Classes\shader</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\shader\ripple_sprite.h">
-      <Filter>Classes\shader</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\demo\shader\scene_ripple.h">
-      <Filter>Classes\demo\shader</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\shader\hue_sprite.h">
-      <Filter>Classes\shader</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\demo\shader\scene_hue.h">
-      <Filter>Classes\demo\shader</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
