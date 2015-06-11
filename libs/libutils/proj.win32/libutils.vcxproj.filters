@@ -19,6 +19,9 @@
     <Filter Include="io">
       <UniqueIdentifier>{39c19ec4-c96e-4124-bd98-df6a4baa35e2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="pathfind">
+      <UniqueIdentifier>{3f9b37af-1988-47b9-a1e3-3d2746dd5832}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\crypto\aes\aes.c">
@@ -93,6 +96,9 @@
     </ClCompile>
     <ClCompile Include="..\shader\laser_sprite.cpp">
       <Filter>shader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\pathfind\MapSearch.cpp">
+      <Filter>pathfind</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -171,6 +177,15 @@
     </ClInclude>
     <ClInclude Include="..\shader\laser_sprite.h">
       <Filter>shader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\pathfind\AStar.h">
+      <Filter>pathfind</Filter>
+    </ClInclude>
+    <ClInclude Include="..\pathfind\FSA.h">
+      <Filter>pathfind</Filter>
+    </ClInclude>
+    <ClInclude Include="..\pathfind\MapSearch.h">
+      <Filter>pathfind</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

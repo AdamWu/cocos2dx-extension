@@ -66,7 +66,6 @@ function AStar:searchPath()
     startNode.g = 0
     startNode.h = 0
     startNode.f = 0
-    --table.insert(self.open_list, startNode)
     self.open_list[self:getIndex(startNode.row, startNode.col)] = startNode
     
     -- 检查边界、障碍点 

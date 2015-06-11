@@ -73,11 +73,9 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	tolua_CocoStudio_open(tolua_s);
 	tolua_utils_open(tolua_s);
 
-
 	std::vector<std::string> searchPaths;
 	searchPaths.push_back("script");
 	CCFileUtils::sharedFileUtils()->setSearchPaths(searchPaths);
-
 
 	std::string path = CCFileUtils::sharedFileUtils()->fullPathForFilename("main.lua");
 	pEngine->executeScriptFile(path.c_str());

@@ -85,6 +85,7 @@
     <ClCompile Include="..\crypto\xxtea\xxtea.c" />
     <ClCompile Include="..\io\FileSystem.cpp" />
     <ClCompile Include="..\lua_utils.cpp" />
+    <ClCompile Include="..\pathfind\MapSearch.cpp" />
     <ClCompile Include="..\shader\blind_sprite.cpp" />
     <ClCompile Include="..\shader\bloom_sprite.cpp" />
     <ClCompile Include="..\shader\blur_sprite.cpp" />
@@ -112,6 +113,9 @@
     <ClInclude Include="..\crypto\xxtea\xxtea.h" />
     <ClInclude Include="..\io\FileSystem.h" />
     <ClInclude Include="..\lua_utils.h" />
+    <ClInclude Include="..\pathfind\AStar.h" />
+    <ClInclude Include="..\pathfind\FSA.h" />
+    <ClInclude Include="..\pathfind\MapSearch.h" />
     <ClInclude Include="..\shader\blind_sprite.h" />
     <ClInclude Include="..\shader\bloom_sprite.h" />
     <ClInclude Include="..\shader\blur_sprite.h" />

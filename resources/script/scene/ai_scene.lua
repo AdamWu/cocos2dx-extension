@@ -135,7 +135,7 @@ function AIScene:ctor()
         end
 
         local time = os.clock()
-        MapSearch:getInstance():search(_start.row, _start.col, _end.row, _end.col)
+        MapSearch:getInstance():search(_start.row-1, _start.col-1, _end.row-1, _end.col-1)
         print("search using ", os.clock()-time)
         self.label_tip:setText("Elapsed time (s):" .. string.format("%.4f", os.clock()-time))
        -- print(table.inspect(path))
@@ -151,7 +151,7 @@ function AIScene:ctor()
             end
             for k, v in ipairs(resultPath) do
                 local row, col = v.row, v.col
-                local sprite = background:tileAt(ccp(row-1, col-1))
+                local sprite = background:tileAt(ccp(row, col))
                 if sprite then sprite:setColor(COLOR_RED) end
             end
         end
@@ -185,7 +185,7 @@ function AIScene:ctor()
                 end
             end
 
-            search({row=1, col=1}, {row=coord.x+1, col=coord.y+1})
+            search2({row=1, col=1}, {row=coord.x+1, col=coord.y+1})
         end
         return false
     end

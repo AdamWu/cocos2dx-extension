@@ -1,6 +1,6 @@
 /*
 ** Lua binding: utils
-** Generated automatically by tolua++-1.0.92 on 06/04/15 18:06:21.
+** Generated automatically by tolua++-1.0.92 on 06/10/15 15:43:24.
 */
 
 /****************************************************************************
@@ -29,6 +29,7 @@ extern "C" {
 #include "shader/ripple_sprite.h"
 #include "shader/stream_sprite.h"
 #include "ui/VEScrollView.h"
+#include "pathfind/MapSearch.h"
 
 using namespace cocos2d;
 
@@ -50,6 +51,13 @@ static int tolua_collect_NormalSprite (lua_State* tolua_S)
 static int tolua_collect_StreamSprite (lua_State* tolua_S)
 {
  StreamSprite* self = (StreamSprite*) tolua_tousertype(tolua_S,1,0);
+    Mtolua_delete(self);
+    return 0;
+}
+
+static int tolua_collect_CCSize (lua_State* tolua_S)
+{
+ CCSize* self = (CCSize*) tolua_tousertype(tolua_S,1,0);
     Mtolua_delete(self);
     return 0;
 }
@@ -82,9 +90,9 @@ static int tolua_collect_SpotLight (lua_State* tolua_S)
     return 0;
 }
 
-static int tolua_collect_CCSize (lua_State* tolua_S)
+static int tolua_collect_MapSearch (lua_State* tolua_S)
 {
- CCSize* self = (CCSize*) tolua_tousertype(tolua_S,1,0);
+ MapSearch* self = (MapSearch*) tolua_tousertype(tolua_S,1,0);
     Mtolua_delete(self);
     return 0;
 }
@@ -140,6 +148,7 @@ static void tolua_reg_types (lua_State* tolua_S)
  tolua_usertype(tolua_S,"StreamSprite");
  tolua_usertype(tolua_S,"CCTexture2D");
  tolua_usertype(tolua_S,"CCTouch");
+ tolua_usertype(tolua_S,"MapSearch");
  tolua_usertype(tolua_S,"scroll_touch");
  tolua_usertype(tolua_S,"HueSprite");
  tolua_usertype(tolua_S,"FrostSprite");
@@ -3244,6 +3253,402 @@ static int tolua_utils_VEScrollView_touchCheck00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
+/* method: getInstance of class  MapSearch */
+#ifndef TOLUA_DISABLE_tolua_utils_MapSearch_getInstance00
+static int tolua_utils_MapSearch_getInstance00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"MapSearch",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  {
+   MapSearch* tolua_ret = (MapSearch*)  MapSearch::getInstance();
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"MapSearch");
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getInstance'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: new of class  MapSearch */
+#ifndef TOLUA_DISABLE_tolua_utils_MapSearch_new00
+static int tolua_utils_MapSearch_new00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"MapSearch",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  {
+   MapSearch* tolua_ret = (MapSearch*)  Mtolua_new((MapSearch)());
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"MapSearch");
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'new'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: new_local of class  MapSearch */
+#ifndef TOLUA_DISABLE_tolua_utils_MapSearch_new00_local
+static int tolua_utils_MapSearch_new00_local(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"MapSearch",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  {
+   MapSearch* tolua_ret = (MapSearch*)  Mtolua_new((MapSearch)());
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"MapSearch");
+    tolua_register_gc(tolua_S,lua_gettop(tolua_S));
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'new'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: delete of class  MapSearch */
+#ifndef TOLUA_DISABLE_tolua_utils_MapSearch_delete00
+static int tolua_utils_MapSearch_delete00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"MapSearch",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  MapSearch* self = (MapSearch*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'delete'", NULL);
+#endif
+  Mtolua_delete(self);
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'delete'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: init of class  MapSearch */
+#ifndef TOLUA_DISABLE_tolua_utils_MapSearch_init00
+static int tolua_utils_MapSearch_init00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"MapSearch",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,4,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,5,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  MapSearch* self = (MapSearch*)  tolua_tousertype(tolua_S,1,0);
+  int width = ((int)  tolua_tonumber(tolua_S,2,0));
+  int height = ((int)  tolua_tonumber(tolua_S,3,0));
+  int mapdata = ((int)  tolua_tonumber(tolua_S,4,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'init'", NULL);
+#endif
+  {
+   self->init(width,height,&mapdata);
+   tolua_pushnumber(tolua_S,(lua_Number)mapdata);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'init'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: initMap of class  MapSearch */
+#ifndef TOLUA_DISABLE_tolua_utils_MapSearch_initMap00
+static int tolua_utils_MapSearch_initMap00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"MapSearch",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,4,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,5,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  MapSearch* self = (MapSearch*)  tolua_tousertype(tolua_S,1,0);
+  int x = ((int)  tolua_tonumber(tolua_S,2,0));
+  int y = ((int)  tolua_tonumber(tolua_S,3,0));
+  int value = ((int)  tolua_tonumber(tolua_S,4,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'initMap'", NULL);
+#endif
+  {
+   self->initMap(x,y,value);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'initMap'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getMap of class  MapSearch */
+#ifndef TOLUA_DISABLE_tolua_utils_MapSearch_getMap00
+static int tolua_utils_MapSearch_getMap00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"MapSearch",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,4,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  MapSearch* self = (MapSearch*)  tolua_tousertype(tolua_S,1,0);
+  int x = ((int)  tolua_tonumber(tolua_S,2,0));
+  int y = ((int)  tolua_tonumber(tolua_S,3,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getMap'", NULL);
+#endif
+  {
+   int tolua_ret = (int)  self->getMap(x,y);
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getMap'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: search of class  MapSearch */
+#ifndef TOLUA_DISABLE_tolua_utils_MapSearch_search00
+static int tolua_utils_MapSearch_search00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"MapSearch",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,4,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,5,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,6,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  MapSearch* self = (MapSearch*)  tolua_tousertype(tolua_S,1,0);
+  int startx = ((int)  tolua_tonumber(tolua_S,2,0));
+  int starty = ((int)  tolua_tonumber(tolua_S,3,0));
+  int endx = ((int)  tolua_tonumber(tolua_S,4,0));
+  int endy = ((int)  tolua_tonumber(tolua_S,5,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'search'", NULL);
+#endif
+  {
+   self->search(startx,starty,endx,endy);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'search'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getSearchState of class  MapSearch */
+#ifndef TOLUA_DISABLE_tolua_utils_MapSearch_getSearchState00
+static int tolua_utils_MapSearch_getSearchState00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"MapSearch",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  MapSearch* self = (MapSearch*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getSearchState'", NULL);
+#endif
+  {
+   unsigned int tolua_ret = (unsigned int)  self->getSearchState();
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getSearchState'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getSearchSteps of class  MapSearch */
+#ifndef TOLUA_DISABLE_tolua_utils_MapSearch_getSearchSteps00
+static int tolua_utils_MapSearch_getSearchSteps00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"MapSearch",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  MapSearch* self = (MapSearch*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getSearchSteps'", NULL);
+#endif
+  {
+   int tolua_ret = (int)  self->getSearchSteps();
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getSearchSteps'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getSearchNodeX of class  MapSearch */
+#ifndef TOLUA_DISABLE_tolua_utils_MapSearch_getSearchNodeX00
+static int tolua_utils_MapSearch_getSearchNodeX00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"MapSearch",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  MapSearch* self = (MapSearch*)  tolua_tousertype(tolua_S,1,0);
+  unsigned int step = ((unsigned int)  tolua_tonumber(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getSearchNodeX'", NULL);
+#endif
+  {
+   int tolua_ret = (int)  self->getSearchNodeX(step);
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getSearchNodeX'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getSearchNodeY of class  MapSearch */
+#ifndef TOLUA_DISABLE_tolua_utils_MapSearch_getSearchNodeY00
+static int tolua_utils_MapSearch_getSearchNodeY00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"MapSearch",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  MapSearch* self = (MapSearch*)  tolua_tousertype(tolua_S,1,0);
+  unsigned int step = ((unsigned int)  tolua_tonumber(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getSearchNodeY'", NULL);
+#endif
+  {
+   int tolua_ret = (int)  self->getSearchNodeY(step);
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getSearchNodeY'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
 /* Open function */
 TOLUA_API int tolua_utils_open (lua_State* tolua_S)
 {
@@ -3445,6 +3850,26 @@ TOLUA_API int tolua_utils_open (lua_State* tolua_S)
    tolua_function(tolua_S,"getAllCells",tolua_utils_VEScrollView_getAllCells00);
    tolua_function(tolua_S,"addTouchHandler",tolua_utils_VEScrollView_addTouchHandler00);
    tolua_function(tolua_S,"touchCheck",tolua_utils_VEScrollView_touchCheck00);
+  tolua_endmodule(tolua_S);
+  #ifdef __cplusplus
+  tolua_cclass(tolua_S,"MapSearch","MapSearch","",tolua_collect_MapSearch);
+  #else
+  tolua_cclass(tolua_S,"MapSearch","MapSearch","",NULL);
+  #endif
+  tolua_beginmodule(tolua_S,"MapSearch");
+   tolua_function(tolua_S,"getInstance",tolua_utils_MapSearch_getInstance00);
+   tolua_function(tolua_S,"new",tolua_utils_MapSearch_new00);
+   tolua_function(tolua_S,"new_local",tolua_utils_MapSearch_new00_local);
+   tolua_function(tolua_S,".call",tolua_utils_MapSearch_new00_local);
+   tolua_function(tolua_S,"delete",tolua_utils_MapSearch_delete00);
+   tolua_function(tolua_S,"init",tolua_utils_MapSearch_init00);
+   tolua_function(tolua_S,"initMap",tolua_utils_MapSearch_initMap00);
+   tolua_function(tolua_S,"getMap",tolua_utils_MapSearch_getMap00);
+   tolua_function(tolua_S,"search",tolua_utils_MapSearch_search00);
+   tolua_function(tolua_S,"getSearchState",tolua_utils_MapSearch_getSearchState00);
+   tolua_function(tolua_S,"getSearchSteps",tolua_utils_MapSearch_getSearchSteps00);
+   tolua_function(tolua_S,"getSearchNodeX",tolua_utils_MapSearch_getSearchNodeX00);
+   tolua_function(tolua_S,"getSearchNodeY",tolua_utils_MapSearch_getSearchNodeY00);
   tolua_endmodule(tolua_S);
  tolua_endmodule(tolua_S);
  return 1;

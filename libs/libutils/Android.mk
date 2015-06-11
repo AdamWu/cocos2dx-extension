@@ -26,6 +26,7 @@ shader/stream_sprite.cpp \
 shader/shader_manager.cpp \
 io/FileSystem.cpp \
 ui/VEScrollView.cpp \
+pathfind/MapSearch.cpp \
 
 LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH)
 
