@@ -185,7 +185,7 @@ function AIScene:ctor()
                 end
             end
 
-            search2({row=1, col=1}, {row=coord.x+1, col=coord.y+1})
+            search({row=1, col=1}, {row=coord.x+1, col=coord.y+1})
         end
         return false
     end
