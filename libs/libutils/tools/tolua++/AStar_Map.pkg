@@ -1,0 +1,36 @@
+class AStarMap
+{
+	// constructor just initialises private data
+	AStarMap(int width, int height);
+
+	void release();
+	
+	void initMap(int x, int y, int value);
+	
+	void initNode();
+	
+	int getNodeIdx(int x, int y);
+
+	// Set Start and goal states
+	void SetStartAndGoal(int startx, int starty, int goalx, int goaly);
+
+	// Advances search one step 
+	unsigned int SearchStep();
+
+	unsigned int Search(int startx, int starty, int goalx, int goaly);
+
+
+	// Get final cost of solution
+	// Returns FLT_MAX if goal is not defined or there is no solution
+	float GetSolutionCost();
+
+	// Get the number of steps
+
+	int GetStepCount() { return m_Steps; }
+	
+	int getResultSteps();
+	int getResultNodeX(unsigned int step);
+	int getResultNodeY(unsigned int step);
+};
+
+   

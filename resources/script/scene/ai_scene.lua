@@ -127,7 +127,7 @@ function AIScene:ctor()
     local function search2(_start, _end)
         print(string.format("search (%s, %s), (%s, %s)", _start.row, _start.col, _end.row, _end.col))
 
-        MapSearch:getInstance():init(layersize.width, layersize.height, 0)
+        AStarMap:getInstance():init(layersize.width, layersize.height, 0)
         for i = 0, layersize.width-1 do
             for j = 0, layersize.height-1 do 
                 MapSearch:getInstance():initMap(i, j, map[i+1][j+1])
@@ -155,6 +155,41 @@ function AIScene:ctor()
                 if sprite then sprite:setColor(COLOR_RED) end
             end
         end
+    end
+
+
+    local function search3(_start, _end)
+        print(string.format("search (%s, %s), (%s, %s)", _start.row, _start.col, _end.row, _end.col))
+
+        local astar = AStarMap(layersize.width, layersize.height)
+        for i = 0, layersize.width-1 do
+            for j = 0, layersize.height-1 do 
+                astar:initMap(i, j, map[i+1][j+1])
+            end
+        end 
+        astar:initNode()
+
+        local time = os.clock()
+        local state = astar:Search(_start.row-1, _start.col-1, _end.row-1, _end.col-1)
+        print("search using ", os.clock()-time)
+        self.label_tip:setText("Elapsed time (s):" .. string.format("%.4f", os.clock()-time))
+       -- print(table.inspect(path))
+
+        if state == 2 then
+            local steps = astar:getResultSteps()
+            local resultPath = {}
+            for i = 0, steps-1 do
+                local x = astar:getResultNodeX(i)
+                local y = astar:getResultNodeY(i)
+                table.insert(resultPath, {row=x, col=y})
+            end
+            for k, v in ipairs(resultPath) do
+                local row, col = v.row, v.col
+                local sprite = background:tileAt(ccp(row, col))
+                if sprite then sprite:setColor(COLOR_RED) end
+            end
+        end
+        astar:release()
     end
 
     local function getCoordByPos(x, y)

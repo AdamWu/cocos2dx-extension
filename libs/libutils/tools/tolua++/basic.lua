@@ -286,6 +286,7 @@ extern "C" {
 #include "shader/stream_sprite.h"
 #include "ui/VEScrollView.h"
 #include "pathfind/MapSearch.h"
+#include "pathfind/AStar_Map.h"
 
 using namespace cocos2d;]])
 

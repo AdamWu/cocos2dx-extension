@@ -100,6 +100,9 @@
     <ClCompile Include="..\pathfind\MapSearch.cpp">
       <Filter>pathfind</Filter>
     </ClCompile>
+    <ClCompile Include="..\pathfind\AStar_Map.cpp">
+      <Filter>pathfind</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\crypto\aes\aes.h">
@@ -185,6 +188,9 @@
       <Filter>pathfind</Filter>
     </ClInclude>
     <ClInclude Include="..\pathfind\MapSearch.h">
+      <Filter>pathfind</Filter>
+    </ClInclude>
+    <ClInclude Include="..\pathfind\AStar_Map.h">
       <Filter>pathfind</Filter>
     </ClInclude>
   </ItemGroup>

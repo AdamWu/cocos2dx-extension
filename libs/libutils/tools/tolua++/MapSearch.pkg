@@ -1,0 +1,27 @@
+class MapSearch
+{
+public:
+	static MapSearch* getInstance(){
+		if(!s_instance)
+		{
+			s_instance = new MapSearch;
+		}
+		return s_instance;
+	}
+public:
+	MapSearch() {m_searchSteps=0;};
+	~MapSearch(){};
+
+	void init(int width, int height, int *mapdata);
+	void initMap(int x, int y, int value);
+
+	int getMap(int x, int y);
+
+	void search(int startx, int starty, int endx, int endy);
+	
+	unsigned int getSearchState() {return m_searchState;}
+	
+	int getSearchSteps() {return m_searchResult.size();};
+	int getSearchNodeX(unsigned int step) {return (m_searchResult[step])->x;};
+	int getSearchNodeY(unsigned int step) {return (m_searchResult[step])->y;};
+};

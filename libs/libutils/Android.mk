@@ -27,6 +27,7 @@ shader/shader_manager.cpp \
 io/FileSystem.cpp \
 ui/VEScrollView.cpp \
 pathfind/MapSearch.cpp \
+pathfind/AStar_Map.cpp \
 
 LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH)
 

@@ -1,6 +1,6 @@
 /*
 ** Lua binding: utils
-** Generated automatically by tolua++-1.0.92 on 06/10/15 15:43:24.
+** Generated automatically by tolua++-1.0.92 on 06/12/15 11:57:09.
 */
 
 /****************************************************************************
@@ -30,6 +30,7 @@ extern "C" {
 #include "shader/stream_sprite.h"
 #include "ui/VEScrollView.h"
 #include "pathfind/MapSearch.h"
+#include "pathfind/AStar_Map.h"
 
 using namespace cocos2d;
 
@@ -51,6 +52,13 @@ static int tolua_collect_NormalSprite (lua_State* tolua_S)
 static int tolua_collect_StreamSprite (lua_State* tolua_S)
 {
  StreamSprite* self = (StreamSprite*) tolua_tousertype(tolua_S,1,0);
+    Mtolua_delete(self);
+    return 0;
+}
+
+static int tolua_collect_AStarMap (lua_State* tolua_S)
+{
+ AStarMap* self = (AStarMap*) tolua_tousertype(tolua_S,1,0);
     Mtolua_delete(self);
     return 0;
 }
@@ -144,37 +152,38 @@ static int tolua_collect_RippleSprite (lua_State* tolua_S)
 /* function to register type */
 static void tolua_reg_types (lua_State* tolua_S)
 {
- tolua_usertype(tolua_S,"NormalSprite");
- tolua_usertype(tolua_S,"StreamSprite");
- tolua_usertype(tolua_S,"CCTexture2D");
+ tolua_usertype(tolua_S,"CCPoint");
+ tolua_usertype(tolua_S,"CCLayer");
  tolua_usertype(tolua_S,"CCTouch");
- tolua_usertype(tolua_S,"MapSearch");
- tolua_usertype(tolua_S,"scroll_touch");
- tolua_usertype(tolua_S,"HueSprite");
+ tolua_usertype(tolua_S,"SpotLight");
  tolua_usertype(tolua_S,"FrostSprite");
  tolua_usertype(tolua_S,"FileSystem");
+ tolua_usertype(tolua_S,"CCNode");
+ tolua_usertype(tolua_S,"CCEvent");
+ tolua_usertype(tolua_S,"AStarMap");
+ tolua_usertype(tolua_S,"ccColor3B");
+ tolua_usertype(tolua_S,"CCObject");
+ tolua_usertype(tolua_S,"BlurSprite");
+ tolua_usertype(tolua_S,"RippleSprite");
+ tolua_usertype(tolua_S,"NormalSprite");
+ tolua_usertype(tolua_S,"StreamSprite");
  tolua_usertype(tolua_S,"ccColor4F");
  tolua_usertype(tolua_S,"CCSize");
- tolua_usertype(tolua_S,"CCNode");
  tolua_usertype(tolua_S,"BloomSprite");
  tolua_usertype(tolua_S,"GraySprite");
  tolua_usertype(tolua_S,"ColorSprite");
  tolua_usertype(tolua_S,"CCArray");
+ tolua_usertype(tolua_S,"CCTexture2D");
+ tolua_usertype(tolua_S,"MapSearch");
+ tolua_usertype(tolua_S,"scroll_touch");
+ tolua_usertype(tolua_S,"HueSprite");
  tolua_usertype(tolua_S,"CCSet");
- tolua_usertype(tolua_S,"CCLayer");
- tolua_usertype(tolua_S,"CCEvent");
  tolua_usertype(tolua_S,"VEScrollView");
- tolua_usertype(tolua_S,"RippleSprite");
- tolua_usertype(tolua_S,"CCPoint");
- tolua_usertype(tolua_S,"CCRect");
- tolua_usertype(tolua_S,"SpotLight");
- tolua_usertype(tolua_S,"ccColor3B");
- tolua_usertype(tolua_S,"BlindSprite");
  tolua_usertype(tolua_S,"LaserSprite");
  tolua_usertype(tolua_S,"CCSprite");
  tolua_usertype(tolua_S,"ccVertex3F");
- tolua_usertype(tolua_S,"CCObject");
- tolua_usertype(tolua_S,"BlurSprite");
+ tolua_usertype(tolua_S,"CCRect");
+ tolua_usertype(tolua_S,"BlindSprite");
  tolua_usertype(tolua_S,"ShaderManager");
 }
 
@@ -3649,6 +3658,481 @@ static int tolua_utils_MapSearch_getSearchNodeY00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
+/* method: new of class  AStarMap */
+#ifndef TOLUA_DISABLE_tolua_utils_AStarMap_new00
+static int tolua_utils_AStarMap_new00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"AStarMap",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,4,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  int width = ((int)  tolua_tonumber(tolua_S,2,0));
+  int height = ((int)  tolua_tonumber(tolua_S,3,0));
+  {
+   AStarMap* tolua_ret = (AStarMap*)  Mtolua_new((AStarMap)(width,height));
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"AStarMap");
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'new'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: new_local of class  AStarMap */
+#ifndef TOLUA_DISABLE_tolua_utils_AStarMap_new00_local
+static int tolua_utils_AStarMap_new00_local(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"AStarMap",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,4,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  int width = ((int)  tolua_tonumber(tolua_S,2,0));
+  int height = ((int)  tolua_tonumber(tolua_S,3,0));
+  {
+   AStarMap* tolua_ret = (AStarMap*)  Mtolua_new((AStarMap)(width,height));
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"AStarMap");
+    tolua_register_gc(tolua_S,lua_gettop(tolua_S));
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'new'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: release of class  AStarMap */
+#ifndef TOLUA_DISABLE_tolua_utils_AStarMap_release00
+static int tolua_utils_AStarMap_release00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"AStarMap",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  AStarMap* self = (AStarMap*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'release'", NULL);
+#endif
+  {
+   self->release();
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'release'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: initMap of class  AStarMap */
+#ifndef TOLUA_DISABLE_tolua_utils_AStarMap_initMap00
+static int tolua_utils_AStarMap_initMap00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"AStarMap",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,4,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,5,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  AStarMap* self = (AStarMap*)  tolua_tousertype(tolua_S,1,0);
+  int x = ((int)  tolua_tonumber(tolua_S,2,0));
+  int y = ((int)  tolua_tonumber(tolua_S,3,0));
+  int value = ((int)  tolua_tonumber(tolua_S,4,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'initMap'", NULL);
+#endif
+  {
+   self->initMap(x,y,value);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'initMap'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: initNode of class  AStarMap */
+#ifndef TOLUA_DISABLE_tolua_utils_AStarMap_initNode00
+static int tolua_utils_AStarMap_initNode00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"AStarMap",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  AStarMap* self = (AStarMap*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'initNode'", NULL);
+#endif
+  {
+   self->initNode();
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'initNode'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getNodeIdx of class  AStarMap */
+#ifndef TOLUA_DISABLE_tolua_utils_AStarMap_getNodeIdx00
+static int tolua_utils_AStarMap_getNodeIdx00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"AStarMap",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,4,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  AStarMap* self = (AStarMap*)  tolua_tousertype(tolua_S,1,0);
+  int x = ((int)  tolua_tonumber(tolua_S,2,0));
+  int y = ((int)  tolua_tonumber(tolua_S,3,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getNodeIdx'", NULL);
+#endif
+  {
+   int tolua_ret = (int)  self->getNodeIdx(x,y);
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getNodeIdx'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: SetStartAndGoal of class  AStarMap */
+#ifndef TOLUA_DISABLE_tolua_utils_AStarMap_SetStartAndGoal00
+static int tolua_utils_AStarMap_SetStartAndGoal00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"AStarMap",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,4,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,5,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,6,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  AStarMap* self = (AStarMap*)  tolua_tousertype(tolua_S,1,0);
+  int startx = ((int)  tolua_tonumber(tolua_S,2,0));
+  int starty = ((int)  tolua_tonumber(tolua_S,3,0));
+  int goalx = ((int)  tolua_tonumber(tolua_S,4,0));
+  int goaly = ((int)  tolua_tonumber(tolua_S,5,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'SetStartAndGoal'", NULL);
+#endif
+  {
+   self->SetStartAndGoal(startx,starty,goalx,goaly);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'SetStartAndGoal'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: SearchStep of class  AStarMap */
+#ifndef TOLUA_DISABLE_tolua_utils_AStarMap_SearchStep00
+static int tolua_utils_AStarMap_SearchStep00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"AStarMap",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  AStarMap* self = (AStarMap*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'SearchStep'", NULL);
+#endif
+  {
+   unsigned int tolua_ret = (unsigned int)  self->SearchStep();
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'SearchStep'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: Search of class  AStarMap */
+#ifndef TOLUA_DISABLE_tolua_utils_AStarMap_Search00
+static int tolua_utils_AStarMap_Search00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"AStarMap",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,4,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,5,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,6,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  AStarMap* self = (AStarMap*)  tolua_tousertype(tolua_S,1,0);
+  int startx = ((int)  tolua_tonumber(tolua_S,2,0));
+  int starty = ((int)  tolua_tonumber(tolua_S,3,0));
+  int goalx = ((int)  tolua_tonumber(tolua_S,4,0));
+  int goaly = ((int)  tolua_tonumber(tolua_S,5,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'Search'", NULL);
+#endif
+  {
+   unsigned int tolua_ret = (unsigned int)  self->Search(startx,starty,goalx,goaly);
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'Search'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: GetSolutionCost of class  AStarMap */
+#ifndef TOLUA_DISABLE_tolua_utils_AStarMap_GetSolutionCost00
+static int tolua_utils_AStarMap_GetSolutionCost00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"AStarMap",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  AStarMap* self = (AStarMap*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'GetSolutionCost'", NULL);
+#endif
+  {
+   float tolua_ret = (float)  self->GetSolutionCost();
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'GetSolutionCost'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: GetStepCount of class  AStarMap */
+#ifndef TOLUA_DISABLE_tolua_utils_AStarMap_GetStepCount00
+static int tolua_utils_AStarMap_GetStepCount00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"AStarMap",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  AStarMap* self = (AStarMap*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'GetStepCount'", NULL);
+#endif
+  {
+   int tolua_ret = (int)  self->GetStepCount();
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'GetStepCount'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getResultSteps of class  AStarMap */
+#ifndef TOLUA_DISABLE_tolua_utils_AStarMap_getResultSteps00
+static int tolua_utils_AStarMap_getResultSteps00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"AStarMap",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  AStarMap* self = (AStarMap*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getResultSteps'", NULL);
+#endif
+  {
+   int tolua_ret = (int)  self->getResultSteps();
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getResultSteps'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getResultNodeX of class  AStarMap */
+#ifndef TOLUA_DISABLE_tolua_utils_AStarMap_getResultNodeX00
+static int tolua_utils_AStarMap_getResultNodeX00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"AStarMap",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  AStarMap* self = (AStarMap*)  tolua_tousertype(tolua_S,1,0);
+  unsigned int step = ((unsigned int)  tolua_tonumber(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getResultNodeX'", NULL);
+#endif
+  {
+   int tolua_ret = (int)  self->getResultNodeX(step);
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getResultNodeX'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getResultNodeY of class  AStarMap */
+#ifndef TOLUA_DISABLE_tolua_utils_AStarMap_getResultNodeY00
+static int tolua_utils_AStarMap_getResultNodeY00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"AStarMap",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  AStarMap* self = (AStarMap*)  tolua_tousertype(tolua_S,1,0);
+  unsigned int step = ((unsigned int)  tolua_tonumber(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getResultNodeY'", NULL);
+#endif
+  {
+   int tolua_ret = (int)  self->getResultNodeY(step);
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getResultNodeY'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
 /* Open function */
 TOLUA_API int tolua_utils_open (lua_State* tolua_S)
 {
@@ -3870,6 +4354,28 @@ TOLUA_API int tolua_utils_open (lua_State* tolua_S)
    tolua_function(tolua_S,"getSearchSteps",tolua_utils_MapSearch_getSearchSteps00);
    tolua_function(tolua_S,"getSearchNodeX",tolua_utils_MapSearch_getSearchNodeX00);
    tolua_function(tolua_S,"getSearchNodeY",tolua_utils_MapSearch_getSearchNodeY00);
+  tolua_endmodule(tolua_S);
+  #ifdef __cplusplus
+  tolua_cclass(tolua_S,"AStarMap","AStarMap","",tolua_collect_AStarMap);
+  #else
+  tolua_cclass(tolua_S,"AStarMap","AStarMap","",NULL);
+  #endif
+  tolua_beginmodule(tolua_S,"AStarMap");
+   tolua_function(tolua_S,"new",tolua_utils_AStarMap_new00);
+   tolua_function(tolua_S,"new_local",tolua_utils_AStarMap_new00_local);
+   tolua_function(tolua_S,".call",tolua_utils_AStarMap_new00_local);
+   tolua_function(tolua_S,"release",tolua_utils_AStarMap_release00);
+   tolua_function(tolua_S,"initMap",tolua_utils_AStarMap_initMap00);
+   tolua_function(tolua_S,"initNode",tolua_utils_AStarMap_initNode00);
+   tolua_function(tolua_S,"getNodeIdx",tolua_utils_AStarMap_getNodeIdx00);
+   tolua_function(tolua_S,"SetStartAndGoal",tolua_utils_AStarMap_SetStartAndGoal00);
+   tolua_function(tolua_S,"SearchStep",tolua_utils_AStarMap_SearchStep00);
+   tolua_function(tolua_S,"Search",tolua_utils_AStarMap_Search00);
+   tolua_function(tolua_S,"GetSolutionCost",tolua_utils_AStarMap_GetSolutionCost00);
+   tolua_function(tolua_S,"GetStepCount",tolua_utils_AStarMap_GetStepCount00);
+   tolua_function(tolua_S,"getResultSteps",tolua_utils_AStarMap_getResultSteps00);
+   tolua_function(tolua_S,"getResultNodeX",tolua_utils_AStarMap_getResultNodeX00);
+   tolua_function(tolua_S,"getResultNodeY",tolua_utils_AStarMap_getResultNodeY00);
   tolua_endmodule(tolua_S);
  tolua_endmodule(tolua_S);
  return 1;
